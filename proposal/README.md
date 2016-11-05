@@ -26,9 +26,15 @@ graphs of hosts that are communicating with each other. Our primary area of
 investigation is how vis can enhance anomaly detection and evaluation of this
 kind of temporal graph data.
 
+## Preliminary Hypothesis
+
+We propose that using a [chord diagram](https://en.wikipedia.org/wiki/Chord_diagram)
+and the ability for an analyst to chose visual encoding of attributes around
+the perimeter of the circle, certain anomalous traffic will be able to be
+visually detected.
+
 TODO:
 
   - Brief abstract (3-4 sentences) giving a summary of your proposal
-  - List of your preliminary hypotheses
   - Hardware and software you will use to complete your implementation (displays, input devices, toolkits, languages, etc.)
   - Tasks and metrics you might use to test your hypotheses
