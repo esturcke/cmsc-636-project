@@ -35,12 +35,30 @@ visually detected.
 
 ## Implementation Details
 
-The UI will be browser based, written in JavaScript and use
+We will be using [VAST 2013 Mini-Challenge 3](http://vacommunity.org/VAST+Challenge+2013%3A+Mini-Challenge+3)
+data sets. The UI will be browser based, written in JavaScript and use
 [D3.js](https://d3js.org/) to draw the vis. For the initial implementation, the
 data will be preprocessed to bring it to a size small enough to be used by the
 browser in whole and run on a laptop with 16GB of memory. The initial version
 will target the current version of Chrome, but should work in all modern
 browsers.
+
+## Evaluation
+
+The data is [known to
+contain](https://www.researchgate.net/publication/257942320_VAST_Challenge_2013_Situation_Awareness_and_Prospective_Analysis)
+denial of service attempts (DoS), port scans, but most importantly exfiltration
+of several large files via FTP. To keep this project within the scope of a half
+semester project, we will present our visualization to 1–2 people familiar with
+network security and see if they are able to detect the data exfiltration. This
+will be an informal evaluation with no metrics.
+
+## Potential Contribution
+
+We hope to demonstrate a that visual anomaly detection is viable for temporal
+graph data sets and that in particular, the vis tool that we develop would aid
+network security analyst in detecting and evaluating anomalous behavior on an
+internal network. 
 
 TODO:
 
