@@ -14,7 +14,7 @@ incorrectly detected or only detected in part. Because of the volume of traffic
 on the network, analysts can only consider a small fraction of the traffic in
 any detail. Automatically detected threats can often be assigned a severity to
 prioritize what analysts should look at first. For novel threats, however,
-there's a greater burden on analysts to find suspect traffic. Visually encoding
+there’s a greater burden on analysts to find suspect traffic. Visually encoding
 network traffic might give analysts the ability to detect certain anomalous
 patterns and help guide further analysis. 
 
