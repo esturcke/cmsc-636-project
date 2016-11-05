@@ -69,8 +69,3 @@ We hope to demonstrate a that visual anomaly detection is viable for temporal
 graph data sets and that in particular, the vis tool that we develop would aid
 network security analyst in detecting and evaluating anomalous behavior on an
 internal network. 
-
-TODO:
-
-  - Brief abstract (3-4 sentences) giving a summary of your proposal
-  - Tasks and metrics you might use to test your hypotheses
