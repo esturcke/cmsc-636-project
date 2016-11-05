@@ -18,10 +18,17 @@ there’s a greater burden on analysts to find suspect traffic. Visually encodin
 network traffic might give analysts the ability to detect certain anomalous
 patterns and help guide further analysis. 
 
+## Research Question
+
+Network traffic is both temporal and network (graph) data. It’s important to
+note here that we are not considering network topology, but temporally varying
+graphs of hosts that are communicating with each other. Our primary area of
+investigation is how vis can enhance anomaly detection and evaluation of this
+kind of temporal graph data.
+
 TODO:
 
   - Brief abstract (3-4 sentences) giving a summary of your proposal
-  - Research questions you will be addressing
   - List of your preliminary hypotheses
   - Hardware and software you will use to complete your implementation (displays, input devices, toolkits, languages, etc.)
   - Tasks and metrics you might use to test your hypotheses
