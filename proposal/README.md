@@ -2,6 +2,16 @@
 
 Kyle Boyer (kyleboy1@umbc.edu), Erik J. Sturcke (sturcke1@umbc.edu)
 
+## Abstract
+
+We propose using a chord diagram to visualize temporally varying network
+traffic so that a network security analyst can detect anomalies in the traffic.
+The visualization will visually represent network traffic via the chords of the
+diagram and the ability to encode attributes visually around the perimeter of
+the circle. This will provide both high level situational awareness of traffic
+with the ability to see details for specific traffic once an anomaly has been
+detected.
+
 ## Introduction
 
 Organizations typically monitor internal network traffic for threats, many of
@@ -59,8 +69,3 @@ We hope to demonstrate a that visual anomaly detection is viable for temporal
 graph data sets and that in particular, the vis tool that we develop would aid
 network security analyst in detecting and evaluating anomalous behavior on an
 internal network. 
-
-TODO:
-
-  - Brief abstract (3-4 sentences) giving a summary of your proposal
-  - Tasks and metrics you might use to test your hypotheses
