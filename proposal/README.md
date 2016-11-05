@@ -33,8 +33,16 @@ and the ability for an analyst to chose visual encoding of attributes around
 the perimeter of the circle, certain anomalous traffic will be able to be
 visually detected.
 
+## Implementation Details
+
+The UI will be browser based, written in JavaScript and use
+[D3.js](https://d3js.org/) to draw the vis. For the initial implementation, the
+data will be preprocessed to bring it to a size small enough to be used by the
+browser in whole and run on a laptop with 16GB of memory. The initial version
+will target the current version of Chrome, but should work in all modern
+browsers.
+
 TODO:
 
   - Brief abstract (3-4 sentences) giving a summary of your proposal
-  - Hardware and software you will use to complete your implementation (displays, input devices, toolkits, languages, etc.)
   - Tasks and metrics you might use to test your hypotheses
