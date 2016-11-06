@@ -15,7 +15,7 @@ detected.
 ## Introduction
 
 Organizations typically monitor internal network traffic for threats, many of
-which can automatically detected and often even mitigated with the help of
+which can automatically be detected and often even mitigated with the help of
 tools and network appliances like firewalls and intrusion prevention systems
 (IPS). Often these organizations will also have analysts dedicated to
 determining if further investigation and mitigation should take place for
@@ -65,7 +65,7 @@ will be an informal evaluation with no metrics.
 
 ## Potential Contribution
 
-We hope to demonstrate a that visual anomaly detection is viable for temporal
+We hope to demonstrate that visual anomaly detection is viable for temporal
 graph data sets and that in particular, the vis tool that we develop would aid
 network security analyst in detecting and evaluating anomalous behavior on an
 internal network. 
