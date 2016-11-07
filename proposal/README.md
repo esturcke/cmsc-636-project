@@ -39,7 +39,7 @@ kind of temporal graph data.
 ## Preliminary Hypothesis
 
 We propose that using a [chord diagram](https://en.wikipedia.org/wiki/Chord_diagram)
-and the ability for an analyst to chose visual encoding of attributes around
+and the ability for an analyst to choose visual encoding of attributes around
 the perimeter of the circle, certain anomalous traffic will be able to be
 visually detected.
 
