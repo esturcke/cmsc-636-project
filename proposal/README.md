@@ -48,7 +48,7 @@ visually detected.
 We will be using [VAST 2013 Mini-Challenge 3](http://vacommunity.org/VAST+Challenge+2013%3A+Mini-Challenge+3)
 data sets. The UI will be browser based, written in JavaScript and use
 [D3.js](https://d3js.org/) to draw the vis. For the initial implementation, the
-data will be preprocessed to bring it to a size small enough to be used by the
+data will be pre-processed to bring it to a size small enough to be used by the
 browser in whole and run on a laptop with 16GB of memory. The initial version
 will target the current version of Chrome, but should work in all modern
 browsers.
