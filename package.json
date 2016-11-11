@@ -1,0 +1,12 @@
+{
+  "name": "cmsc-636-project",
+  "version": "1.0.0",
+  "description": "VizSec Semester Project for CMSC 636 / Data Visualization",
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:esturcke/cmsc-636-project.git",
+    "type": "git"
+  },
+  "author": "Erik J. Sturcke <erik@sturcke.co>",
+  "license": "BSD-3-Clause"
+}
