@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+DIR=`git rev-parse --show-toplevel`/vast-data
+URL=http://vacommunity.org/dl
+
+mkdir -p "$DIR"
+cd "$DIR"
+
+for ID in 394 387 388 392 395; do
+  FILE="$ID.zip"
+  curl -o "$FILE" $URL$ID
+  unzip "$FILE"
+  rm -fr __MACOSX
+  rm -f "$FILE"
+done
