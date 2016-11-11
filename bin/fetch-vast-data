@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR=`git rev-parse --show-toplevel`/vast-data
+DIR=`git rev-parse --show-toplevel`/raw-vast-data
 URL=http://vacommunity.org/dl
 
 mkdir -p "$DIR"
