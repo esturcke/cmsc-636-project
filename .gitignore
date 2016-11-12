@@ -1,5 +1,11 @@
+# Node dependencies
+node_modules
+
 # Word temporary
 ~$*.doc*
 
 # Vast data
 raw-vast-data
+
+# REST API data
+rest-api/data
