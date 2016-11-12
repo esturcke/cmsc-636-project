@@ -44,6 +44,20 @@ Then process data
 yarn run process-host-data
 ```
 
+#### Start the REST API
+
+First start MongoDB
+
+```
+yarn run mongo
+```
+
+Then start the REST API
+
+```
+yarn run rest-api
+```
+
 ## Data Types
 
 ### Internal hosts

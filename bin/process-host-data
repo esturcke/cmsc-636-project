@@ -4,7 +4,7 @@ import assert                 from 'assert'
 import { toLong as ipToLong } from 'ip'
 import adjNoun                from 'adj-noun'
 import mongoose               from 'mongoose'
-import Host                   from '~/model/Host'
+import { Host }               from '~/model'
 
 mongoose.Promise = global.Promise
 
