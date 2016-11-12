@@ -6,12 +6,11 @@
 
   - [Node.js](https://nodejs.org/en/)
   - [MongoDB](https://www.mongodb.com/)
-  - [Gulp](http://gulpjs.com/)
-  - [Yarn](https://yarnpkg.com/) (or `npm` from Node.js)
+  - [Yarn](https://yarnpkg.com/)
 
 ### Setup
 
-#### Clone repository
+#### Clone Repository
 
 ```
 git clone git@github.com:esturcke/cmsc-636-project.git
@@ -23,10 +22,26 @@ git clone git@github.com:esturcke/cmsc-636-project.git
 yarn
 ```
 
-Or using `npm`
+#### Download VAST Data
+
+To download and extract the raw VAST data to `raw-vast-data` run:
 
 ```
-npm install
+bin/fetch-vast-data
+```
+
+#### Process and Populate MongoDB
+
+First start MongoDB
+
+```
+yarn run mongo
+```
+
+Then process data
+
+```
+yarn run process-host-data
 ```
 
 ## Data Types
@@ -35,7 +50,7 @@ npm install
 
 | Field    | [BSON Type](https://docs.mongodb.com/v3.2/reference/bson-types/) | Abstract type | Description                                          |
 | ---      | ---                                                              | ---           | ---                                                  |
-| ip       | `int`                                                            | nominal       | IP Address                                           |
+| ip       | `int`                                                            | nominal       | IPv4 Address                                         |
 | name     | `string`                                                         | nominal       | Hostname                                             |
 | nickName | `string`                                                         | nominal       | Short cute name                                      |
 | site     | `string`                                                         | nominal       | One of 3 enterprise sites                            |
