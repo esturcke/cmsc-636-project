@@ -12,7 +12,8 @@
   "scripts": {
     "rest-api": "babel-node ./rest-api",
     "mongo": "mongod --bind_ip localhost --dbpath ./rest-api/data --quiet",
-    "process-host-data": "babel-node ./bin/process-host-data"
+    "process-hosts": "babel-node ./bin/process-host.js",
+    "process-netflows": "babel-node ./bin/process-netflows.js"
   },
   "dependencies": {
     "adj-noun": "^0.1.1",
@@ -31,6 +32,7 @@
     "method-override": "^2.3.6",
     "mongoose": "^4.6.7",
     "morgan": "^1.7.0",
+    "multistream": "^2.1.0",
     "node-restful": "^0.2.5"
   }
 }

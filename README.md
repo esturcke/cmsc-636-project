@@ -70,3 +70,22 @@ yarn run rest-api
 | site     | `string`                                                         | nominal       | One of 3 enterprise sites                            |
 | type     | `string`                                                         | nominal       | Host type (`server`, `administrator`, `workstation`) |
 | service  | `string`                                                         | nominal       | Type of service of server (`domain`, `smtp`, `http`) |
+
+### Netflow
+
+| Field           | [BSON Type](https://docs.mongodb.com/v3.2/reference/bson-types/) | Abstract type | Description                 |
+| ---             | ---                                                              | ---           | ---                         |
+| time            | `date`                                                           | interval      | Time of final packet        |
+| protocol        | `string`                                                         | nominal       | Protocol (`tcp`, `udp`)     |
+| srcIp           | `int`                                                            | nominal       | Source IPv4 Address         |
+| srcPort         | `int`                                                            | nominal       | Source Port                 |
+| dstIp           | `int`                                                            | nominal       | Destination IPv4 Address    |
+| dstPort         | `int`                                                            | nominal       | Destination Port            |
+| duration        | `int`                                                            | ratio         | Session duration in seconds |
+| srcPayloadBytes | `int`                                                            | ratio         | Payload bytes sent          |
+| srcTotalBytes   | `int`                                                            | ratio         | Payload bytes received      |
+| dstPayloadBytes | `int`                                                            | ratio         | Total bytes sent            |
+| dstTotalBytes   | `int`                                                            | ratio         | Total bytes received        |
+| srcPacketCount  | `int`                                                            | ratio         | Packets sent                |
+| dstPacketCount  | `int`                                                            | ratio         | Packets received            |
+| forcedOut       | `string`                                                         | nominal       | ?                           |
