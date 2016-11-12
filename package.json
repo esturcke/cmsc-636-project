@@ -8,5 +8,11 @@
     "type": "git"
   },
   "author": "Erik J. Sturcke <erik@sturcke.co>",
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "adj-noun": "^0.1.1",
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.5.2",
+    "lodash": "^4.16.6"
+  }
 }
