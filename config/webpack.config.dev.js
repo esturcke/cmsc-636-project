@@ -87,7 +87,7 @@ module.exports = {
     // It's important to do this before Babel processes the JS.
     preLoaders: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         loader: 'eslint',
         include: paths.appSrc,
       },
@@ -95,7 +95,7 @@ module.exports = {
     loaders: [
       // Process JS with Babel.
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         include: paths.appSrc,
         loader: 'babel',
         query: {
