@@ -1572,6 +1572,13 @@ http-signature@~1.1.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+"https://github.com/baugarten/node-restful.git", node-restful:
+  name node-restful
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/node-restful/-/node-restful-0.2.5.tgz#8cfe2ff4b7d769e58e319a50ab15a694107eda53"
+  dependencies:
+    underscore "1.8.3"
+
 iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
@@ -2193,12 +2200,6 @@ node-pre-gyp@^0.6.29:
     semver "~5.3.0"
     tar "~2.2.1"
     tar-pack "~3.3.0"
-
-node-restful:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/node-restful/-/node-restful-0.2.5.tgz#8cfe2ff4b7d769e58e319a50ab15a694107eda53"
-  dependencies:
-    underscore "1.8.3"
 
 node-uuid@~1.4.7:
   version "1.4.7"
