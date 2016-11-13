@@ -22,8 +22,9 @@ mongoose.connect("mongodb://localhost:27017/test")
 const isBulk = ({ params : { id } }) => !id
 const parseQuery = (req, res, next) => {
   if (isBulk(req)) {
-    if (req.query.skip)  req.query.skip  = parseInt(req.query.skip)
-    if (req.query.limit) req.query.limit = parseInt(req.query.limit)
+    if (req.query.skip)   req.query.skip  = parseInt(req.query.skip)
+    if (req.query.limit)  req.query.limit = parseInt(req.query.limit)
+    if (!req.query.limit) req.query.limit = 10000
   }
   next()
 }
