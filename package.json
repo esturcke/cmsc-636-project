@@ -12,7 +12,7 @@
   "scripts": {
     "rest-api": "babel-node ./rest-api",
     "mongo": "mongod --bind_ip localhost --dbpath ./rest-api/data --quiet",
-    "process-hosts": "babel-node ./bin/process-host.js",
+    "process-hosts": "babel-node ./bin/process-hosts.js",
     "process-netflows": "babel-node ./bin/process-netflows.js"
   },
   "dependencies": {

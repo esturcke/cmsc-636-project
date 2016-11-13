@@ -41,7 +41,8 @@ yarn run mongo
 Then process data
 
 ```
-yarn run process-host-data
+yarn run process-hosts
+yarn run process-netflows
 ```
 
 #### Start the REST API
