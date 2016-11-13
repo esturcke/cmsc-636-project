@@ -10,7 +10,7 @@
   "author": "Erik J. Sturcke <erik@sturcke.co>",
   "license": "BSD-3-Clause",
   "scripts": {
-    "rest-api": "babel-node ./rest-api",
+    "rest-api": "NODE_ENV=production babel-node ./rest-api",
     "mongo": "mongod --bind_ip localhost --dbpath ./rest-api/data --quiet",
     "process-hosts": "babel-node ./bin/process-hosts.js",
     "process-netflows": "babel-node ./bin/process-netflows.js"
