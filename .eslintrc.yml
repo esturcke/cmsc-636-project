@@ -9,17 +9,19 @@ plugins:
 settings:
   import/resolver: babel-root-import
 env: 
-  es6: true
   browser: true
-  node: true
+  es6: true
   mocha: true
+  node: true
 ecmaFeatures: 
   jsx: true
   modules: true
 rules: 
   comma-dangle: [1, always-multiline]
   eol-last: 1
+  import/default: 0
   indent: [1, 2, { SwitchCase: 1 }]
+  jsx-quotes: 1
   keyword-spacing: 1
   no-alert: 1
   no-console: 0
@@ -31,13 +33,7 @@ rules:
   no-unexpected-multiline: 2
   no-unused-vars: [1, { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }]
   no-var: 1
-  import/default: 0
   quotes: [1, single] 
-  semi: [1, never]
-  space-before-blocks: 1
-  space-infix-ops: [1, { int32Hint: false }]
-  space-unary-ops: 1
-  jsx-quotes: 1
   react/display-name: [1, { ignoreTranspilerName: false }]
   react/forbid-prop-types: [1, { forbid: ["any"] }]
   react/jsx-boolean-value: 1
@@ -55,6 +51,7 @@ rules:
   react/jsx-sort-props: 0
   react/jsx-uses-react: 1
   react/jsx-uses-vars: 1
+  react/jsx-wrap-multilines: 1
   react/no-danger: 1
   react/no-did-mount-set-state: 1
   react/no-did-update-set-state: 1
@@ -67,6 +64,9 @@ rules:
   react/react-in-jsx-scope: 1
   react/self-closing-comp: 1
   react/sort-comp: 1
-  react/jsx-wrap-multilines: 1
+  semi: [1, never]
+  space-before-blocks: 1
+  space-infix-ops: [1, { int32Hint: false }]
+  space-unary-ops: 1
 globals: 
   CONFIG: true
