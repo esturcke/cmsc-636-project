@@ -17,17 +17,13 @@ app.use(compression())
 app.use((req, res, next) => {
 
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", url.format(appHostInfo))
+  res.setHeader('Access-Control-Allow-Origin', '*')
 
   // Request methods you wish to allow
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE")
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS')
 
   // Request headers you wish to allow
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type")
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  // res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
 
   // Pass to next layer of middleware
   next()
@@ -35,7 +31,7 @@ app.use((req, res, next) => {
 
 const mongoose = restful.mongoose
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost:27017/test")
+mongoose.connect('mongodb://localhost:27017/test')
 
 const isBulk = ({ params : { id } }) => !id
 const parseQuery = (req, res, next) => {

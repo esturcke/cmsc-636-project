@@ -18,9 +18,9 @@ const FILES = [
 
 const protocol = n => {
   switch (n) {
-    case "1"  : return 'icmp'
-    case "6"  : return 'tcp'
-    case "17" : return 'udp'
+    case '1'  : return 'icmp'
+    case '6'  : return 'tcp'
+    case '17' : return 'udp'
     default   : throw `Unknown protocol : ${n}`
   }
 }
