@@ -6,6 +6,8 @@ extends:
   - plugin:import/warnings
 plugins: 
   - react
+settings:
+  import/resolver: babel-root-import
 env: 
   es6: true
   browser: true
