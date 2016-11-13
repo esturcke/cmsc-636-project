@@ -17,8 +17,18 @@ const mongoose = restful.mongoose
 mongoose.Promise = global.Promise
 mongoose.connect("mongodb://localhost:27017/test")
 
+const isBulk = ({ params : { id } }) => !id
+const parseQuery = (req, res, next) => {
+  if (isBulk(req)) {
+    if (req.query.skip)  req.query.skip  = parseInt(req.query.skip)
+    if (req.query.limit) req.query.limit = parseInt(req.query.limit)
+  }
+  next()
+}
+
 const register = ({ modelName, schema, collection }) => {
   const Resource = restful.model(modelName, schema).methods(['get'])
+  Resource.before('get', parseQuery)
   Resource.register(app, `/${collection.name}`)
 }
 
