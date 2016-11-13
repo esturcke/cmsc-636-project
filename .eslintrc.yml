@@ -31,6 +31,7 @@ rules:
   no-unexpected-multiline: 2
   no-unused-vars: [1, { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }]
   no-var: 1
+  import/default: 0
   quotes: [1, single] 
   semi: [1, never]
   space-before-blocks: 1
