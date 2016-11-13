@@ -13,17 +13,21 @@
     "rest-api": "NODE_ENV=production babel-node ./rest-api",
     "mongo": "mongod --bind_ip localhost --dbpath ./rest-api/data --quiet",
     "process-hosts": "babel-node ./bin/process-hosts.js",
-    "process-netflows": "babel-node ./bin/process-netflows.js"
+    "process-netflows": "babel-node ./bin/process-netflows.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
   },
   "dependencies": {
     "adj-noun": "^0.1.1",
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.0",
     "babel-plugin-lodash": "^3.2.9",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-1": "^6.16.0",
     "babel-root-import": "^4.1.3",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
+    "eslint": "^3.10.0",
     "event-stream": "^3.3.4",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
