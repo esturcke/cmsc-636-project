@@ -3,6 +3,7 @@ import bodyParser     from 'body-parser'
 import methodOverride from 'method-override'
 import morgan         from 'morgan'
 import restful        from 'node-restful'
+import compression    from 'compression'
 import { each }       from 'lodash'
 import * as models    from '~/model'
 
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ 'extended' : 'true' }))
 app.use(bodyParser.json())
 app.use(bodyParser.json({ type : 'application/vnd.api+json' }))
 app.use(methodOverride())
+app.use(compression())
 
 const mongoose = restful.mongoose
 mongoose.Promise = global.Promise
