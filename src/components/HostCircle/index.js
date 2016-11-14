@@ -1,19 +1,8 @@
 import React from 'react'
+import Arc   from '~/components/svg/Arc'
 
-const renderCircles = (props) => {
-  return (coords, index) => {
-    const circleProps = {
-      cx: coords[0],
-      cy: coords[1],
-      r: 2,
-      key: index
-    };
-    return <circle {...circleProps} />;
-  };
-};
-
-const HostCircle = (props) => {
-  return <g>{props.data.map(renderCircles(props))}</g>
+const HostCircle = () => {
+  return <Arc position={{ r : 150, t : 2 }} width={30} angle={2} fill="none" stroke="black" transform="translate(200,200)"/>
 }
 
 export default HostCircle

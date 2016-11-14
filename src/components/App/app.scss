@@ -1,0 +1,17 @@
+:local .app {
+
+  position   : absolute;
+  top        : 0;
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+  background : #eee;
+  padding    : 1em;
+
+  > svg { 
+    display : block;
+    margin  : auto;
+    border  : 1px solid #ccc;
+  }
+
+}
