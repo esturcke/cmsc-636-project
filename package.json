@@ -19,6 +19,7 @@
     "process-netflows": "babel-node ./bin/process-netflows.js",
     "rest-api": "NODE_ENV=production nodemon ./rest-api --exec babel-node",
     "rest-api-daemon": "NODE_ENV=production forever start -c babel-node ./rest-api",
+    "server": "yarn mongo-daemon && yarn rest-api-daemon",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom"
   },
