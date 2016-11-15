@@ -1,5 +1,6 @@
 import React            from "react"
 import HostCircle       from "~/components/HostCircle"
+import Legend           from "~/components/Legend"
 import { processHosts } from "~/lib/hosts"
 import styles           from "./app.scss"
 
@@ -19,6 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className={styles.app}>
+        <Legend/>
         <svg width={1000} height={1000}>
           <HostCircle hosts={this.state.hosts}/>
         </svg>

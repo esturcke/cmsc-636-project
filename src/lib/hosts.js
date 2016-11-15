@@ -37,4 +37,12 @@ const kind = ({ type, service }) =>
   service === "smtp"          ? "Mail server"       :
   service === "domain"        ? "Domain controller" : "black"
 
-export { processHosts, color, kind }
+const kinds = [
+  { type    : "administrator" },
+  { type    : "workstation"   },
+  { service : "http"          },
+  { service : "smtp"          },
+  { service : "domain"        },
+]
+
+export { processHosts, color, kind, kinds }

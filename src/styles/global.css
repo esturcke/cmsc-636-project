@@ -1,3 +1,4 @@
 body {
-  font-family: "TypoPRO Fira Sans";
+  font : 12px/1.4 "TypoPRO Fira Sans", sans-serif;
+  font-feature-settings : "onum" 1, "tnum" 1;
 }
