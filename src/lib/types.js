@@ -1,4 +1,4 @@
-import { PropTypes as T } from 'react'
+import { PropTypes as T } from "react"
 
 const cartesian = T.shape({
   x : T.number.isRequired,
@@ -16,8 +16,8 @@ const globalTypes = {
   stroke         : T.string,
   strokeOpacity  : T.number,
   strokeWidth    : T.number,
-  strokeLinecap  : T.oneOf(['butt', 'square', 'round']),
-  strokeLinejoin : T.oneOf(['miter', 'round', 'bevel']),
+  strokeLinecap  : T.oneOf(["butt", "square", "round"]),
+  strokeLinejoin : T.oneOf(["miter", "round", "bevel"]),
   strokeLash     : T.string,
   fill           : T.string,
   fillOpacity    : T.number,

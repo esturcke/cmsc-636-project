@@ -1,7 +1,7 @@
-import React      from 'react'
-import { values } from 'lodash'
-import Arc        from '~/components/svg/Arc'
-import T          from '~/lib/types'
+import React      from "react"
+import { values } from "lodash"
+import Arc        from "~/components/svg/Arc"
+import T          from "~/lib/types"
 
 const HostCircle = ({ hosts }) => (
   <g transform="translate(500, 500)">

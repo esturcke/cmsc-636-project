@@ -1,4 +1,4 @@
-import { cartesian } from '~/lib/coordinates'
+import { cartesian } from "~/lib/coordinates"
 
 const point = p => {
   const { x, y } = cartesian(p)
@@ -6,15 +6,15 @@ const point = p => {
 }
 
 const path = ({ from }) => {
-  const self = { d : 'M' + point(from) }
+  const self = { d : "M" + point(from) }
 
   self.move = ({ to }) => {
-    self.d += 'M' + point(to)
+    self.d += "M" + point(to)
     return self
   }
 
   self.line = ({ to }) => {
-    self.d += 'L' + point(to)
+    self.d += "L" + point(to)
     return self
   }
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import T     from '~/lib/types'
+import React from "react"
+import T     from "~/lib/types"
 
 const Path = ({ d, pathLength, ...props }) => <path d={d} pathLength={pathLength} {...props}/>
 

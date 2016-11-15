@@ -1,7 +1,7 @@
-import { has } from 'lodash'
+import { has } from "lodash"
 
-const isPolar     = value => has(value, 'r') && has(value, 't')
-const isCartesian = value => has(value, 'x') && has(value, 'y')
+const isPolar     = value => has(value, "r") && has(value, "t")
+const isCartesian = value => has(value, "x") && has(value, "y")
 
 const cartesianFromPolar = ({ r, t }) => ({
   x : r * Math.cos(t),
@@ -16,13 +16,13 @@ const polarFromCartesian = ({ x, y }) => ({
 const polar = value => {
   if (isCartesian(value)) return polarFromCartesian(value)
   if (isPolar(value))     return value
-  throw new Error('This does not look like a coordinate:', value)
+  throw new Error("This does not look like a coordinate:", value)
 }
 
 const cartesian = value => {
   if (isPolar(value))     return cartesianFromPolar(value)
   if (isCartesian(value)) return value
-  throw new Error('This does not look like a coordinate:', value)
+  throw new Error("This does not look like a coordinate:", value)
 }
 
 export {

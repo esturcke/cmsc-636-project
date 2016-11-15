@@ -1,11 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 
 const required = true
 const indexed  = true
 
-export default mongoose.model('Netflow', mongoose.Schema({
+export default mongoose.model("Netflow", mongoose.Schema({
   time            : { type : Date,   required, indexed },
-  protocol        : { type : String, required, enum : ['tcp', 'udp', 'icmp'] },
+  protocol        : { type : String, required, enum : ["tcp", "udp", "icmp"] },
   srcIp           : { type : Number, required },
   srcPort         : { type : Number, required },
   dstIp           : { type : Number, required },

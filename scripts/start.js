@@ -1,24 +1,24 @@
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = "development"
 
 // Load environment variables from .env file. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables
 // that have already been set.
 // https://github.com/motdotla/dotenv
-require('dotenv').config({silent: true})
+require("dotenv").config({silent: true})
 
-let chalk = require('chalk')
-let webpack = require('webpack')
-let WebpackDevServer = require('webpack-dev-server')
-let historyApiFallback = require('connect-history-api-fallback')
-let httpProxyMiddleware = require('http-proxy-middleware')
-let detect = require('detect-port')
-let clearConsole = require('react-dev-utils/clearConsole')
-let checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
-let formatWebpackMessages = require('react-dev-utils/formatWebpackMessages')
-let openBrowser = require('react-dev-utils/openBrowser')
-let prompt = require('react-dev-utils/prompt')
-let config = require('../config/webpack.config.dev')
-let paths = require('../config/paths')
+let chalk = require("chalk")
+let webpack = require("webpack")
+let WebpackDevServer = require("webpack-dev-server")
+let historyApiFallback = require("connect-history-api-fallback")
+let httpProxyMiddleware = require("http-proxy-middleware")
+let detect = require("detect-port")
+let clearConsole = require("react-dev-utils/clearConsole")
+let checkRequiredFiles = require("react-dev-utils/checkRequiredFiles")
+let formatWebpackMessages = require("react-dev-utils/formatWebpackMessages")
+let openBrowser = require("react-dev-utils/openBrowser")
+let prompt = require("react-dev-utils/prompt")
+let config = require("../config/webpack.config.dev")
+let paths = require("../config/paths")
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -32,7 +32,7 @@ let handleCompile
 
 // You can safely remove this after ejecting.
 // We only use this block for testing of Create React App itself:
-let isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1)
+let isSmokeTest = process.argv.some(arg => arg.indexOf("--smoke-test") > -1)
 if (isSmokeTest) {
   handleCompile = function (err, stats) {
     if (err || stats.hasErrors() || stats.hasWarnings()) {
@@ -52,14 +52,14 @@ function setupCompiler(host, port, protocol) {
   // recompiling a bundle. WebpackDevServer takes care to pause serving the
   // bundle, so if you refresh, it'll wait instead of serving the old one.
   // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
-  compiler.plugin('invalid', function() {
+  compiler.plugin("invalid", function() {
     clearConsole()
-    console.log('Compiling...')
+    console.log("Compiling...")
   })
 
   // "done" event fires when Webpack has finished recompiling the bundle.
   // Whether or not you have warnings or errors, you will get this event.
-  compiler.plugin('done', function(stats) {
+  compiler.plugin("done", function(stats) {
     clearConsole()
 
     // We have switched off the default Webpack output in WebpackDevServer
@@ -67,20 +67,20 @@ function setupCompiler(host, port, protocol) {
     // them in a readable focused way.
     let messages = formatWebpackMessages(stats.toJson({}, true))
     if (!messages.errors.length && !messages.warnings.length) {
-      console.log(chalk.green('Compiled successfully!'))
+      console.log(chalk.green("Compiled successfully!"))
       console.log()
-      console.log('The app is running at:')
+      console.log("The app is running at:")
       console.log()
-      console.log('  ' + chalk.cyan(protocol + '://' + host + ':' + port + '/'))
+      console.log("  " + chalk.cyan(protocol + "://" + host + ":" + port + "/"))
       console.log()
-      console.log('Note that the development build is not optimized.')
-      console.log('To create a production build, use ' + chalk.cyan('npm run build') + '.')
+      console.log("Note that the development build is not optimized.")
+      console.log("To create a production build, use " + chalk.cyan("npm run build") + ".")
       console.log()
     }
 
     // If errors exist, only show errors.
     if (messages.errors.length) {
-      console.log(chalk.red('Failed to compile.'))
+      console.log(chalk.red("Failed to compile."))
       console.log()
       messages.errors.forEach(message => {
         console.log(message)
@@ -91,16 +91,16 @@ function setupCompiler(host, port, protocol) {
 
     // Show warnings if no errors were found.
     if (messages.warnings.length) {
-      console.log(chalk.yellow('Compiled with warnings.'))
+      console.log(chalk.yellow("Compiled with warnings."))
       console.log()
       messages.warnings.forEach(message => {
         console.log(message)
         console.log()
       })
       // Teach some ESLint tricks.
-      console.log('You may use special comments to disable some warnings.')
-      console.log('Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.')
-      console.log('Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.')
+      console.log("You may use special comments to disable some warnings.")
+      console.log("Use " + chalk.yellow("// eslint-disable-next-line") + " to ignore the next line.")
+      console.log("Use " + chalk.yellow("/* eslint-disable */") + " to ignore all warnings in a file.")
     }
   })
 }
@@ -111,12 +111,12 @@ function onProxyError(proxy) {
   return function(err, req, res) {
     let host = req.headers && req.headers.host
     console.log(
-      chalk.red('Proxy error:') + ' Could not proxy request ' + chalk.cyan(req.url) +
-      ' from ' + chalk.cyan(host) + ' to ' + chalk.cyan(proxy) + '.'
+      chalk.red("Proxy error:") + " Could not proxy request " + chalk.cyan(req.url) +
+      " from " + chalk.cyan(host) + " to " + chalk.cyan(proxy) + "."
     )
     console.log(
-      'See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (' +
-      chalk.cyan(err.code) + ').'
+      "See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (" +
+      chalk.cyan(err.code) + ")."
     )
     console.log()
 
@@ -125,8 +125,8 @@ function onProxyError(proxy) {
     if (res.writeHead && !res.headersSent) {
       res.writeHead(500)
     }
-    res.end('Proxy error: Could not proxy request ' + req.url + ' from ' +
-      host + ' to ' + proxy + ' (' + err.code + ').'
+    res.end("Proxy error: Could not proxy request " + req.url + " from " +
+      host + " to " + proxy + " (" + err.code + ")."
     )
   }
 }
@@ -147,14 +147,14 @@ function addMiddleware(devServer) {
     // However API calls like `fetch()` won’t generally accept text/html.
     // If this heuristic doesn’t work well for you, don’t use `proxy`.
     htmlAcceptHeaders: proxy ?
-      ['text/html'] :
-      ['text/html', '*/*'],
+      ["text/html"] :
+      ["text/html", "*/*"],
   }))
   if (proxy) {
-    if (typeof proxy !== 'string') {
-      console.log(chalk.red('When specified, "proxy" in package.json must be a string.'))
-      console.log(chalk.red('Instead, the type of "proxy" was "' + typeof proxy + '".'))
-      console.log(chalk.red('Either remove "proxy" from package.json, or make it a string.'))
+    if (typeof proxy !== "string") {
+      console.log(chalk.red("When specified, \"proxy\" in package.json must be a string."))
+      console.log(chalk.red("Instead, the type of \"proxy\" was \"" + typeof proxy + "\"."))
+      console.log(chalk.red("Either remove \"proxy\" from package.json, or make it a string."))
       process.exit(1)
     }
 
@@ -170,7 +170,7 @@ function addMiddleware(devServer) {
       // of both HTTP and WebSockets to work without false positives.
       httpProxyMiddleware(pathname => mayProxy.test(pathname), {
         target: proxy,
-        logLevel: 'silent',
+        logLevel: "silent",
         onError: onProxyError(proxy),
         secure: false,
         changeOrigin: true,
@@ -186,7 +186,7 @@ function runDevServer(host, port, protocol) {
   let devServer = new WebpackDevServer(compiler, {
     // Silence WebpackDevServer's own logs since they're generally not useful.
     // It will still show compile warnings and errors with this setting.
-    clientLogLevel: 'none',
+    clientLogLevel: "none",
     // By default WebpackDevServer serves physical files from current directory
     // in addition to all the virtual build products that it serves from memory.
     // This is confusing because those files won’t automatically be available in
@@ -220,7 +220,7 @@ function runDevServer(host, port, protocol) {
       ignored: /node_modules/,
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    https: protocol === 'https',
+    https: protocol === "https",
     host: host,
   })
 
@@ -234,15 +234,15 @@ function runDevServer(host, port, protocol) {
     }
 
     clearConsole()
-    console.log(chalk.cyan('Starting the development server...'))
+    console.log(chalk.cyan("Starting the development server..."))
     console.log()
-    openBrowser(protocol + '://' + host + ':' + port + '/')
+    openBrowser(protocol + "://" + host + ":" + port + "/")
   })
 }
 
 function run(port) {
-  let protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
-  let host = process.env.HOST || 'localhost'
+  let protocol = process.env.HTTPS === "true" ? "https" : "http"
+  let host = process.env.HOST || "localhost"
   setupCompiler(host, port, protocol)
   runDevServer(host, port, protocol)
 }
@@ -257,8 +257,8 @@ detect(DEFAULT_PORT).then(port => {
 
   clearConsole()
   let question =
-    chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.') +
-    '\n\nWould you like to run the app on another port instead?'
+    chalk.yellow("Something is already running on port " + DEFAULT_PORT + ".") +
+    "\n\nWould you like to run the app on another port instead?"
 
   prompt(question, true).then(shouldChangePort => {
     if (shouldChangePort) {

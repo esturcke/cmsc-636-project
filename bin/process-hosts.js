@@ -1,15 +1,15 @@
-import fs                     from 'fs'
-import es                     from 'event-stream'
-import assert                 from 'assert'
-import { toLong as ipToLong } from 'ip'
-import adjNoun                from 'adj-noun'
-import mongoose               from 'mongoose'
-import { Host }               from '~/model'
+import fs                     from "fs"
+import es                     from "event-stream"
+import assert                 from "assert"
+import { toLong as ipToLong } from "ip"
+import adjNoun                from "adj-noun"
+import mongoose               from "mongoose"
+import { Host }               from "~/model"
 
 mongoose.Promise = global.Promise
 
-const FILE = './raw-vast-data/2013MC3AnswerSheetandDataDescriptions/BigMktNetwork.txt'
-const URL  = 'mongodb://localhost:27017/test'
+const FILE = "./raw-vast-data/2013MC3AnswerSheetandDataDescriptions/BigMktNetwork.txt"
+const URL  = "mongodb://localhost:27017/test"
 
 const keepData = es.map((line, cb) => {
   if (line.match(/^(\s*|#.*)$/))
@@ -21,14 +21,14 @@ const keepData = es.map((line, cb) => {
 const site = ip       => ip.match(/^172.(\d)/)[1]
 const type = hostname => {
   switch (hostname.substring(0, 2).toLowerCase()) {
-    case 'ws' : return 'workstation'
-    case 'ad' : return 'administrator'
-    default   : return 'server'
+    case "ws" : return "workstation"
+    case "ad" : return "administrator"
+    default   : return "server"
   }
 }
 
 adjNoun.seed(9327561)
-const nickName = () => adjNoun().join('-')
+const nickName = () => adjNoun().join("-")
 
 const service = comment => comment ? comment.toLowerCase() : undefined
 
@@ -64,8 +64,8 @@ const insertHosts = (hosts, done) => {
 
 mongoose.connect(URL)
 const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
+db.on("error", console.error.bind(console, "connection error:"))
+db.once("open", () => {
   Host.remove({}, () => {
     insertHosts(streamHosts(), () => { mongoose.disconnect() })
   })

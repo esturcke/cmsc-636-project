@@ -1,7 +1,7 @@
-import React            from 'react'
-import HostCircle       from '~/components/HostCircle'
-import { processHosts } from '~/lib/hosts'
-import styles           from './app.scss'
+import React            from "react"
+import HostCircle       from "~/components/HostCircle"
+import { processHosts } from "~/lib/hosts"
+import styles           from "./app.scss"
 
 class App extends React.Component {
   state = {
@@ -9,7 +9,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://104.251.219.221:9999/hosts')
+    fetch("http://104.251.219.221:9999/hosts")
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))

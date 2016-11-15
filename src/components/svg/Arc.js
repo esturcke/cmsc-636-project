@@ -1,7 +1,7 @@
-import React from 'react'
-import Path  from './Path'
-import path  from '~/lib/svg/path'
-import T     from '~/lib/types'
+import React from "react"
+import Path  from "./Path"
+import path  from "~/lib/svg/path"
+import T     from "~/lib/types"
 
 const d = ({ position, width, angle }) => {
   const p = [

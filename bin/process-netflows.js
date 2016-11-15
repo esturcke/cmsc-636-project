@@ -1,26 +1,26 @@
-import fs                      from 'fs'
-import es                      from 'event-stream'
-import assert                  from 'assert'
-import { toLong as ipToLong }  from 'ip'
-import mongoose                from 'mongoose'
-import multistream             from 'multistream'
-import { Netflow as Resource } from '~/model'
+import fs                      from "fs"
+import es                      from "event-stream"
+import assert                  from "assert"
+import { toLong as ipToLong }  from "ip"
+import mongoose                from "mongoose"
+import multistream             from "multistream"
+import { Netflow as Resource } from "~/model"
 
 mongoose.Promise = global.Promise
 
-const MONGO = 'mongodb://localhost:27017/test'
+const MONGO = "mongodb://localhost:27017/test"
 const FILES = [
-  './raw-vast-data/nf/nf-chunk1.csv',
-  './raw-vast-data/nf/nf-chunk2.csv',
-  './raw-vast-data/nf/nf-chunk3.csv',
-  './raw-vast-data/nf-week2.csv',
+  "./raw-vast-data/nf/nf-chunk1.csv",
+  "./raw-vast-data/nf/nf-chunk2.csv",
+  "./raw-vast-data/nf/nf-chunk3.csv",
+  "./raw-vast-data/nf-week2.csv",
 ]
 
 const protocol = n => {
   switch (n) {
-    case '1'  : return 'icmp'
-    case '6'  : return 'tcp'
-    case '17' : return 'udp'
+    case "1"  : return "icmp"
+    case "6"  : return "tcp"
+    case "17" : return "udp"
     default   : throw `Unknown protocol : ${n}`
   }
 }
@@ -68,8 +68,8 @@ const insert = (objects, done) => {
 
 mongoose.connect(MONGO)
 const db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => {
+db.on("error", console.error.bind(console, "connection error:"))
+db.once("open", () => {
   Resource.remove({}, () => {
     insert(stream(), () => { mongoose.disconnect() })
   })

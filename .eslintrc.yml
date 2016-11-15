@@ -33,7 +33,7 @@ rules:
   no-unexpected-multiline: 2
   no-unused-vars: [1, { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }]
   no-var: 1
-  quotes: [1, single] 
+  quotes: [1, double] 
   react/display-name: [1, { ignoreTranspilerName: false }]
   react/forbid-prop-types: [1, { forbid: ["any"] }]
   react/jsx-boolean-value: 1
