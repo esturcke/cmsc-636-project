@@ -23,10 +23,23 @@ const globalTypes = {
   fillOpacity    : T.number,
 }
 
+const host = T.shape({
+  i        : T.number.isRequired,
+  angle    : T.number.isRequired,
+  position : polar.isRequired,
+  ip       : T.number.isRequired,
+  name     : T.string.isRequired,
+  nickName : T.string.isRequired,
+  site     : T.string.isRequired,
+  type     : T.oneOf(["workstation", "administrator", "server"]).isRequired,
+  service  : T.oneOf(["http", "smtp", "domain"]),
+})
+
 const types = {
   cartesian,
   polar,
   globalTypes,
+  host,
   ...T,
 }
 
