@@ -9,7 +9,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://104.251.219.221:9999/hosts")
+    //    fetch("http://104.251.219.221:9999/hosts")
+    fetch("http://localhost:9999/hosts")
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
