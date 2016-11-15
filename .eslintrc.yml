@@ -2,12 +2,8 @@
 parser: babel-eslint
 extends: 
   - eslint:recommended
-  - plugin:import/errors
-  - plugin:import/warnings
 plugins: 
   - react
-settings:
-  import/resolver: babel-root-import
 env: 
   browser: true
   es6: true
@@ -19,7 +15,6 @@ ecmaFeatures:
 rules: 
   comma-dangle: [1, always-multiline]
   eol-last: 1
-  import/default: 0
   indent: [1, 2, { SwitchCase: 1 }]
   jsx-quotes: 1
   keyword-spacing: 1
