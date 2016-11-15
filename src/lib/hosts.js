@@ -23,4 +23,18 @@ const processHosts = hosts => {
   )(hosts)
 }
 
-export { processHosts }
+const color = ({ type, service }) =>
+  type    === "administrator" ? "rgb(211,124,230)" :
+  type    === "workstation"   ? "rgb(94,191,114)"  :
+  service === "http"          ? "rgb(234,152,90)"  :
+  service === "smtp"          ? "rgb(157,151,211)" :
+  service === "domain"        ? "rgb(245,92,113)"  : "black"
+
+const kind = ({ type, service }) =>
+  type    === "administrator" ? "Administrator"     :
+  type    === "workstation"   ? "Workstation"       :
+  service === "http"          ? "Web server"        :
+  service === "smtp"          ? "Mail server"       :
+  service === "domain"        ? "Domain controller" : "black"
+
+export { processHosts, color, kind }
