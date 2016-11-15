@@ -30,17 +30,24 @@ const type = hostname => {
 adjNoun.seed(9327561)
 const nickName = () => adjNoun().join("-")
 
-const service = comment => comment ? comment.toLowerCase() : undefined
+const service = hostname => {
+  switch (hostname.substring(0, 2).toLowerCase()) {
+    case "dc" : return "domain"
+    case "ma" : return "smtp"
+    case "we" : return "http"
+    default   : undefined
+  }
+}
 
 const constructHost = es.map((line, cb) => {
-  const [ip, hostname, comment] = line.split(/\s/)
+  const [ip, hostname] = line.split(/\s/)
   cb(null, {
     ip       : ipToLong(ip),
     name     : hostname.toLowerCase(),
     nickName : nickName(),
     site     : site(ip),
     type     : type(hostname),
-    service  : service(comment),
+    service  : service(hostname),
   })
 })
 
