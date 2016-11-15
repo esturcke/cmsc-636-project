@@ -24,11 +24,11 @@ const processHosts = hosts => {
 }
 
 const color = ({ type, service }) =>
-  type    === "administrator" ? "rgb(211,124,230)" :
-  type    === "workstation"   ? "rgb(94,191,114)"  :
-  service === "http"          ? "rgb(234,152,90)"  :
-  service === "smtp"          ? "rgb(157,151,211)" :
-  service === "domain"        ? "rgb(245,92,113)"  : "black"
+  type    === "administrator" ? "hsl(265,  31%, 76%)" :
+  type    === "workstation"   ? "hsl(120,  41%, 64%)" :
+  service === "http"          ? "hsl( 29,  97%, 76%)" :
+  service === "smtp"          ? "hsl(214,  78%, 64%)" :
+  service === "domain"        ? "hsl(343, 100%, 72%)" : "black"
 
 const kind = ({ type, service }) =>
   type    === "administrator" ? "Administrator"     :
