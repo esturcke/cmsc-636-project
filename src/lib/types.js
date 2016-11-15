@@ -12,7 +12,7 @@ const polar = T.shape({
 
 const globalTypes = {
   className      : T.string,
-  style          : T.string,
+  style          : T.object,
   stroke         : T.string,
   strokeOpacity  : T.number,
   strokeWidth    : T.number,
