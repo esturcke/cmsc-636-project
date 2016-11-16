@@ -4,7 +4,7 @@ import Host       from "~/components/Host"
 import T          from "~/lib/types"
 
 const HostCircle = ({ hosts }) => (
-  <g transform="translate(500, 500)">
+  <g>
     {values(hosts).map(host => <Host key={host.ip} host={host}/>)}
   </g>
 )
