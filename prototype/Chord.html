@@ -74,6 +74,16 @@ Chord.html
     <script src="js/mapper.js"></script>
     <script>
 
+      // https://stackoverflow.com/questions/8105629/ip-addresses-stored-as-int-results-in-overflow#8105740
+      function num2dot(num) {
+        var d = num%256;
+        for (var i = 3; i > 0; i--) { 
+          num = Math.floor(num/256);
+          d = num%256 + '.' + d;
+        }
+        return d;
+      }
+
       //*******************************************************************
       //  CREATE MATRIX AND MAP
       //*******************************************************************
@@ -150,7 +160,7 @@ Chord.html
                   + "translate(" + (r0 + 26) + ")"
                   + (d.angle > Math.PI ? "rotate(180)" : "");
             })
-            .text(function(d) { return rdr(d).gname; });
+            .text(function(d) { return num2dot(rdr(d).gname); });
 
 
           /*
@@ -217,12 +227,12 @@ Chord.html
           function chordTip (d) {
             var p = d3.format(".1%"), q = d3.format(",f")
             return "Chord Info:<br/>"
-              +  d.sname + " → " + d.tname
+              +  num2dot(d.sname) + " → " + num2dot(d.tname)
               + ": " + q(d.svalue) + "<br/>"
               + p(d.svalue/d.stotal) + " of " + d.sname + "'s Total (" + q(d.stotal) + ")<br/>"
               + p(d.svalue/(d.mtotal/2)) + " of Matrix Total (" + q(d.mtotal/2) + ")<br/>"
               + "<br/>"
-              + d.tname + " → " + d.sname
+              + num2dot(d.tname) + " → " + num2dot(d.sname)
               + ": " + q(d.tvalue) + "<br/>"
               + p(d.tvalue/d.ttotal) + " of " + d.tname + "'s Total (" + q(d.ttotal) + ")<br/>"
               + p(d.tvalue/(d.mtotal/2)) + " of Matrix Total (" + q(d.mtotal/2) + ")";
@@ -231,7 +241,7 @@ Chord.html
           function groupTip (d) {
             var p = d3.format(".1%"), q = d3.format(",f")
             return "Group Info:<br/>"
-                + d.gname + " : " + q(d.gvalue) + "<br/>"
+                + num2dot(d.gname) + " : " + q(d.gvalue) + "<br/>"
                 + p(d.gvalue/(d.mtotal/2)) + " of Matrix Total (" + q(d.mtotal/2) + ")"
           }
 
