@@ -1,5 +1,5 @@
 import { flow, flatMap, filter, map, keyBy } from "lodash/fp"
-import ip                      from "ip"
+import { fromLong as ipFromLong }            from "ip"
 
 const maxRadius = 200
 
@@ -8,7 +8,7 @@ const randomPosition = () => ({
   t : Math.random() * 2 * Math.PI,
 })
 
-const isExternal = n => ip.fromLong(n).substring(0, 3) === "10."
+const isExternal = n => ipFromLong(n).substring(0, 3) === "10."
 
 const externalHosts = flows => {
   return flow(
@@ -16,6 +16,7 @@ const externalHosts = flows => {
     filter(isExternal),
     map(ip => ({
       ip,
+      prettyIp : ipFromLong(ip),
       position : randomPosition(),
     })),
     keyBy("ip"),
