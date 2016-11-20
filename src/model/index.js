@@ -1,4 +1,4 @@
-import Host    from "./Host"
-import Netflow from "./Netflow"
+import Host from "./Host"
+import Flow from "./Flow"
 
-export { Host, Netflow }
+export { Host, Flow }
