@@ -1,6 +1,5 @@
 import fs                     from "fs"
 import es                     from "event-stream"
-import assert                 from "assert"
 import { toLong as ipToLong } from "ip"
 import adjNoun                from "adj-noun"
 import mongoose               from "mongoose"
@@ -66,7 +65,7 @@ const insertHost = es.map((host, cb) => {
 const insertHosts = (hosts, done) => {
   hosts
     .pipe(insertHost)
-    .pipe(es.wait((err, body) => done()))
+    .pipe(es.wait(() => done()))
 }
 
 mongoose.connect(URL)
