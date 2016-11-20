@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const required = true
 const indexed  = true
 
-export default mongoose.model("Netflow", mongoose.Schema({
+export default mongoose.model("Flow", mongoose.Schema({
   time            : { type : Date,   required, indexed },
   protocol        : { type : String, required, enum : ["tcp", "udp", "icmp"] },
   srcIp           : { type : Number, required },

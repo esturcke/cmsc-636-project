@@ -1,19 +1,21 @@
-import fs                      from "fs"
-import es                      from "event-stream"
-import assert                  from "assert"
-import { toLong as ipToLong }  from "ip"
-import mongoose                from "mongoose"
-import multistream             from "multistream"
-import { Netflow as Resource } from "~/model"
+import fs                     from "fs"
+import es                     from "event-stream"
+import { toLong as ipToLong } from "ip"
+import mongoose               from "mongoose"
+import multistream            from "multistream"
+import { Flow as Resource }   from "~/model"
 
 mongoose.Promise = global.Promise
 
 const MONGO = "mongodb://localhost:27017/test"
 const FILES = [
+  "./raw-vast-data/100k-flows.csv",
+  /*
   "./raw-vast-data/nf/nf-chunk1.csv",
   "./raw-vast-data/nf/nf-chunk2.csv",
   "./raw-vast-data/nf/nf-chunk3.csv",
   "./raw-vast-data/nf-week2.csv",
+  */
 ]
 
 const protocol = n => {
@@ -27,6 +29,7 @@ const protocol = n => {
 
 const construct = es.map((line, cb) => {
   const flow = line.split(/,/)
+  if (flow.length === 1) return cb()
 
   // Log data we are currently ignoring
   if (parseInt(flow[9]))  console.log(`More fragment: ${flow[9]}`)
@@ -63,7 +66,7 @@ const insert = (objects, done) => {
       cb()
     })
   }))
-  .pipe(es.wait((err, body) => done()))
+  .pipe(es.wait(() => done()))
 }
 
 mongoose.connect(MONGO)
