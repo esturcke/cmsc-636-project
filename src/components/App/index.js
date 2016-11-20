@@ -2,6 +2,7 @@ import React             from "react"
 import HostCircle        from "~/components/HostCircle"
 import Legend            from "~/components/Legend"
 import Flows             from "~/components/Flows"
+import Traffic           from "~/components/Traffic"
 import ExternalHosts     from "~/components/ExternalHosts"
 import { processHosts }  from "~/lib/hosts"
 import { externalHosts } from "~/lib/externalHosts"
@@ -16,7 +17,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
-    fetch("http://localhost:9999/netflows?limit=1000")
+    fetch("http://localhost:9999/netflows?limit=10000")
       .then(response => response.json())
       .then(flows => this.setState({ flows, externalHosts : externalHosts(flows) }))
   }
@@ -26,9 +27,10 @@ class App extends React.Component {
       <div className={styles.app}>
         <Legend/>
         <svg width={1000} height={1000}><g transform="translate(500, 500)">
+          <Flows hosts={{...this.state.hosts, ...this.state.externalHosts}} flows={this.state.flows}/>
           <ExternalHosts hosts={this.state.externalHosts}/>
-          <Flows hosts={this.state.hosts} flows={this.state.flows}/>
           <HostCircle hosts={this.state.hosts}/>
+          <Traffic hosts={this.state.hosts} flows={this.state.flows}/>
         </g></svg>
       </div>
     )

@@ -10,7 +10,7 @@ const ExternalHosts = ({ hosts }) => (
 )
 
 ExternalHosts.propTypes = {
-  hosts : T.arrayOf(T.object),
+  hosts : T.object,
 }
 
 export default ExternalHosts
