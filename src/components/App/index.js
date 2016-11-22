@@ -13,11 +13,11 @@ class App extends React.Component {
 
   componentDidMount() {
     //    fetch("http://104.251.219.221:9999/hosts")
-    fetch("http://localhost:9999/hosts")
+    fetch("http://localhost:3001/host")
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
-    fetch("http://localhost:9999/netflows?limit=10000")
+    fetch("http://localhost:3001/flow?id=gt.0&id=lt.1000")
       .then(response => response.json())
       .then(flows => this.setState({ flows, externalHosts : externalHosts(flows) }))
   }
