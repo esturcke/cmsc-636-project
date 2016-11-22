@@ -1,16 +1,12 @@
-import fs                     from "fs"
-import es                     from "event-stream"
-import { toLong as ipToLong } from "ip"
-import multistream            from "multistream"
+import fs          from "fs"
+import es          from "event-stream"
+import multistream from "multistream"
 
 const FILES = [
-  "./raw-vast-data/100-flows.csv",
-  /*
   "./raw-vast-data/nf/nf-chunk1.csv",
   "./raw-vast-data/nf/nf-chunk2.csv",
   "./raw-vast-data/nf/nf-chunk3.csv",
   "./raw-vast-data/nf-week2.csv",
-  */
 ]
 
 const protocol = n => {
@@ -26,17 +22,15 @@ const construct = es.map((line, cb) => {
   const flow = line.split(/,/)
   if (flow.length === 1) return cb()
 
-  // Log data we are currently ignoring
-  if (parseInt(flow[9]))  console.log(`More fragment: ${flow[9]}`)
-  if (parseInt(flow[10])) console.log(`Cont fragment: ${flow[10]}`)
-
   cb(null, [
-    flow[0] * 1000,      // time
+    Math.round(flow[0]), // time
     protocol(flow[3]),   // protocol
-    ipToLong(flow[5]),   // srcIp
-    ipToLong(flow[6]),   // dstIp
+    flow[5],             // srcIp
+    flow[6],             // dstIp
     parseInt(flow[7]),   // srcPort
     parseInt(flow[8]),   // dstPort
+    parseInt(flow[9]),   // moreFragment
+    parseInt(flow[10]),  // contFragment
     parseInt(flow[11]),  // duration
     parseInt(flow[12]),  // srcPayloadBytes
     parseInt(flow[12]),  // srcTotalBytes
@@ -45,10 +39,29 @@ const construct = es.map((line, cb) => {
     parseInt(flow[13]),  // srcPacketCount
     parseInt(flow[14]),  // dstPacketCount
     parseInt(flow[15]),  // forcedOut
-  ].join(",") + "\n")
+  ].join("\t") + "\n")
 })
 
 const removeJunk = pattern => es.map((line, cb) => { line.match(pattern) ? cb() : cb(null, line) })
+
+console.log(`COPY flow (
+  time,
+  protocol,
+  srcIp,
+  dstIp,
+  srcPort,
+  dstPort,
+  moreFragment,
+  contFragment,
+  duration,
+  srcPayloadBytes,
+  srcTotalBytes,
+  dstPayloadBytes,
+  dstTotalBytes,
+  srcPacketCount,
+  dstPacketCount,
+  forcedOut
+) FROM STDIN;`)
 
 multistream(FILES.map(file => fs.createReadStream(file)))
   .pipe(es.split())
