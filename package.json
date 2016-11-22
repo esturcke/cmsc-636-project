@@ -13,7 +13,7 @@
     "build": "node scripts/build.js",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "process-hosts": "babel-node ./bin/process-hosts.js",
+    "process-hosts": "psql cmsc-636 -f schemas/host.sql && babel-node bin/process-hosts.js | psql cmsc-636",
     "process-flows": "psql cmsc-636 -f schemas/flow.sql && babel-node bin/process-flows.js | psql cmsc-636",
     "rest-api": "postgrest 'host=localhost dbname=cmsc-636 port=5432' -p 3001 -a esturcke -m 50000",
     "server": "yarn mongo-daemon && yarn rest-api-daemon",
