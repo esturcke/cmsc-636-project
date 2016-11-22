@@ -1,0 +1,6 @@
+BEGIN;
+
+DROP INDEX IF EXISTS time;
+CREATE INDEX time ON flow (time);
+
+COMMIT;
