@@ -7,7 +7,7 @@ const randomPosition = () => ({
   t : Math.random() * 2 * Math.PI,
 })
 
-const isExternal = ip => ip.substring(0, 3) === "10."
+const isExternal = ip => !ip.match(/^172\.[1-3]/)
 
 const externalHosts = flows => {
   return flow(
