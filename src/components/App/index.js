@@ -1,13 +1,14 @@
-import React             from "react"
-import HostCircle        from "~/components/HostCircle"
-import Legend            from "~/components/Legend"
-import Flows             from "~/components/Flows"
-import Traffic           from "~/components/Traffic"
-import ExternalHosts     from "~/components/ExternalHosts"
-import { processHosts }  from "~/lib/hosts"
-import { hostStats }     from "~/lib/hostStats"
-import { externalHosts } from "~/lib/externalHosts"
-import styles            from "./app.scss"
+import React              from "react"
+import HostCircle         from "~/components/HostCircle"
+import Legend             from "~/components/Legend"
+import Flows              from "~/components/Flows"
+import Traffic            from "~/components/Traffic"
+import ExternalHosts      from "~/components/ExternalHosts"
+import { processHosts }   from "~/lib/hosts"
+import { hostStats }      from "~/lib/hostStats"
+import { externalHosts }  from "~/lib/externalHosts"
+import { aggregateFlows } from "~/lib/aggregateFlows"
+import styles             from "./app.scss"
 
 /*
 const minTime = 1366020001
@@ -19,6 +20,8 @@ const span = 0.1
 const from = 1364902616
 const to   = from + span * 1000
 
+const mbps = seconds => bytes => bytes * 8 / 1000000 / seconds
+
 class App extends React.Component {
   state = { from, to, span }
 
@@ -29,7 +32,7 @@ class App extends React.Component {
       .then(hosts => this.setState({ hosts }))
     fetch(`http://localhost:3001/flow?time=gt.${from}&time=lt.${to}`)
       .then(response => response.json())
-      .then(flows => this.setState({ flows, hostStats : hostStats({ flows, span }), externalHosts : externalHosts(flows) }))
+      .then(flows => this.setState({ flows : aggregateFlows({ flows, mbps : mbps(span) }), hostStats : hostStats({ flows, mbps : mbps(span) }), externalHosts : externalHosts(flows) }))
   }
 
   render() {
