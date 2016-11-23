@@ -5,6 +5,7 @@ import Flows             from "~/components/Flows"
 import Traffic           from "~/components/Traffic"
 import ExternalHosts     from "~/components/ExternalHosts"
 import { processHosts }  from "~/lib/hosts"
+import { hostStats }     from "~/lib/hostStats"
 import { externalHosts } from "~/lib/externalHosts"
 import styles            from "./app.scss"
 
@@ -13,29 +14,34 @@ const minTime = 1366020001
 const maxTime = 1364802616
 */
 
+
+const span = 0.1
+const from = 1364902616
+const to   = from + span * 1000
+
 class App extends React.Component {
-  state = {}
+  state = { from, to, span }
 
   componentDidMount() {
-    //    fetch("http://104.251.219.221:9999/hosts")
     fetch("http://localhost:3001/host")
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
-    fetch("http://localhost:3001/flow?id=gt.0&id=lt.1000")
+    fetch(`http://localhost:3001/flow?time=gt.${from}&time=lt.${to}`)
       .then(response => response.json())
-      .then(flows => this.setState({ flows, externalHosts : externalHosts(flows) }))
+      .then(flows => this.setState({ flows, hostStats : hostStats({ flows, span }), externalHosts : externalHosts(flows) }))
   }
 
   render() {
+    const { hosts, externalHosts, flows, hostStats } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
         <svg width={1000} height={1000}><g transform="translate(500, 500)">
-          <Flows hosts={{...this.state.hosts, ...this.state.externalHosts}} flows={this.state.flows}/>
-          <ExternalHosts hosts={this.state.externalHosts}/>
-          <HostCircle hosts={this.state.hosts}/>
-          <Traffic hosts={this.state.hosts} flows={this.state.flows}/>
+          <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
+          <ExternalHosts hosts={externalHosts}/>
+          <HostCircle hosts={hosts}/>
+          <Traffic hosts={hosts} stats={hostStats}/>
         </g></svg>
       </div>
     )

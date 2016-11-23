@@ -1,13 +1,16 @@
-import React      from "react"
-import Arc        from "~/components/svg/Arc"
-import { values } from "lodash"
-import T          from "~/lib/types"
+import React        from "react"
+import { scaleLog } from "d3-scale"
+import { map }      from "lodash"
+import Arc          from "~/components/svg/Arc"
+import T            from "~/lib/types"
 
-const In = ({ host, width }) => (
+const scale = scaleLog().domain([0.001, 1000]).range([0, 40]).clamp(true)
+
+const In = ({ host, traffic }) => (
   <Arc
     position={{ t : host.position.t, r : 420 }}
     angle={host.angle}
-    width={width}
+    width={scale(traffic)}
     fill="gray"
     stroke="black"
     strokeOpacity={0.3}
@@ -15,28 +18,40 @@ const In = ({ host, width }) => (
   />
 )
 
-const Out = ({ host, width }) => (
+In.propTypes = {
+  host    : T.host.isRequired,
+  traffic : T.number.isRequired,
+}
+
+const Out = ({ host, traffic }) => (
   <Arc
     position={{ t : host.position.t, r : 418 }}
     angle={host.angle}
-    width={-width}
+    width={-scale(traffic)}
     fill="gray"
     stroke="black"
     strokeOpacity={0.3}
     strokeWidth={0.25}
   />
 )
-const Traffic = ({ hosts, traffic }) => {
-  return (
-    <g>
-      {values(hosts).map(host => <In key={host.ip} host={host} width={Math.random() * 40}/>)}
-      {values(hosts).map(host => <Out key={host.ip} host={host} width={Math.random() * 40}/>)}
-    </g>
-  )
+
+Out.propTypes = {
+  host    : T.host.isRequired,
+  traffic : T.number.isRequired,
 }
+
+const Traffic = ({ hosts, stats }) => hosts && stats ? (
+  <g>
+    {map(stats, ({ traffic }, ip) => hosts[ip] ? [
+      <In  key={`${ip}-in`}  host={hosts[ip]} traffic={traffic.in}/>,
+      <Out key={`${ip}-out`} host={hosts[ip]} traffic={traffic.out}/>,
+    ] : null)}
+  </g>
+) : null
 
 Traffic.propTypes = {
   hosts : T.object,
+  stats : T.object,
 }
 
 export default Traffic
