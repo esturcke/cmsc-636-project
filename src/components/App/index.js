@@ -8,6 +8,11 @@ import { processHosts }  from "~/lib/hosts"
 import { externalHosts } from "~/lib/externalHosts"
 import styles            from "./app.scss"
 
+/*
+const minTime = 1366020001
+const maxTime = 1364802616
+*/
+
 class App extends React.Component {
   state = {}
 
