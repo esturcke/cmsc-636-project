@@ -4,7 +4,7 @@ import { map }      from "lodash"
 import Arc          from "~/components/svg/Arc"
 import T            from "~/lib/types"
 
-const scale = scaleLog().domain([0.000001, 1000]).range([0, 50]).clamp(true)
+const scale = scaleLog().domain([1 / 1000000, 1000]).range([1, 50]).clamp(true)
 
 const In = ({ host, traffic }) => (
   <Arc

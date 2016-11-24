@@ -16,7 +16,7 @@ const maxTime = 1364802616
 */
 
 
-const span = 100
+const span = 120
 const from = 1364902616
 const to   = from + span
 
@@ -32,7 +32,12 @@ class App extends React.Component {
       .then(hosts => this.setState({ hosts }))
     fetch(`http://localhost:3001/flow?time=gt.${from}&time=lt.${to}`)
       .then(response => response.json())
-      .then(flows => this.setState({ flows : aggregateFlows({ flows, mbps : mbps(span) }), hostStats : hostStats({ flows, mbps : mbps(span) }), externalHosts : externalHosts(flows) }))
+      .then(aggregateFlows(mbps(span)))
+      .then(flows => this.setState({
+        flows,
+        hostStats     : hostStats(mbps(span))(flows),
+        externalHosts : externalHosts(flows),
+      }))
   }
 
   render() {

@@ -8,7 +8,7 @@ const stats = (from, to, mbps) => flows => ({
   },
 })
 
-const hostStats = ({ flows, mbps }) => {
+const hostStats = mbps => flows => {
   const srcStats = flow(
     groupBy("srcip"),
     mapValues(stats("src", "dst", mbps)),

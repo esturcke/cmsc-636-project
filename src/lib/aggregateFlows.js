@@ -11,10 +11,10 @@ const aggregate = mbps => flows => reduce((acc, { srctotalbytes, dsttotalbytes }
   dsttotalbytes : 0,
 })(flows)
 
-const aggregateFlows = ({ flows, mbps }) => flow(
+const aggregateFlows = mbps => flow(
   groupBy(({ srcip, dstip }) => `${srcip}-${dstip}`),
   mapValues(aggregate(mbps)),
   values,
-)(flows)
+)
 
 export { aggregateFlows }
