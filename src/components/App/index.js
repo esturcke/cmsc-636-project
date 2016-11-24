@@ -16,9 +16,9 @@ const maxTime = 1364802616
 */
 
 
-const span = 0.1
+const span = 100
 const from = 1364902616
-const to   = from + span * 1000
+const to   = from + span
 
 const mbps = seconds => bytes => bytes * 8 / 1000000 / seconds
 
