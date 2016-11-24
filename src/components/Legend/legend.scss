@@ -1,0 +1,12 @@
+:local .legend {
+  position   : absolute;
+  bottom     : 2rem;
+  left       : 2rem;
+  border     : 1px solid #ddd;
+  background : rgba(255, 255, 255, 0.8);
+  padding    : 1rem;
+
+  h1 {
+    font-weight : 600;
+  }
+}

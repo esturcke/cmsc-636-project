@@ -9,3 +9,6 @@ raw-vast-data
 
 # REST API data
 rest-api/data
+
+# Logs
+logs
