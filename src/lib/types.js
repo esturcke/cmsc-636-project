@@ -35,11 +35,17 @@ const host = T.shape({
   service  : T.oneOf(["http", "smtp", "domain"]),
 })
 
+const externalHost = T.shape({
+  position : polar.isRequired,
+  ip       : T.string.isRequired,
+})
+
 const types = {
   cartesian,
   polar,
   globalTypes,
   host,
+  externalHost,
   ...T,
 }
 
