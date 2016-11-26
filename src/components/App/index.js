@@ -16,9 +16,8 @@ const minTime = 136602000q
 const maxTime = 1364802616
 */
 
-const span = 300
+const span = 1800
 const from = 1364902500
-const to   = from + span
 
 class App extends React.Component {
   state = {}
@@ -31,11 +30,10 @@ class App extends React.Component {
     fetch("http://localhost:3001/flow_summary")
       .then(response => response.json())
       .then(flowSummary => this.setState({ flowSummary }))
-    this.updateSpan(from, to)
+    this.updateSpan(from)
   }
 
-  updateSpan = (from, to = from + 300) => {
-    const span = to - from
+  updateSpan = (from, to = from + span) => {
     this.setState({ from, to, span })
     fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
