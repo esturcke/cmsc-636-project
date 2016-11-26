@@ -21,7 +21,7 @@ const from = 1364902500
 const to   = from + span
 
 class App extends React.Component {
-  state = { from, to, span }
+  state = {}
 
   componentDidMount() {
     fetch("http://localhost:3001/host")
@@ -31,6 +31,12 @@ class App extends React.Component {
     fetch("http://localhost:3001/flow_summary")
       .then(response => response.json())
       .then(flowSummary => this.setState({ flowSummary }))
+    this.updateSpan(from, to)
+  }
+
+  updateSpan = (from, to = from + 300) => {
+    const span = to - from
+    this.setState({ from, to, span })
     fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
       .then(aggregateFlows)
@@ -42,12 +48,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { hosts, externalHosts, flows, hostStats, flowSummary } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary, from, to } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
         <svg width={1000} height={1000}>
-          <FlowSummary summary={flowSummary} from={from} to={to}/>
+          <FlowSummary summary={flowSummary} from={from} to={to} updateSpan={this.updateSpan}/>
+          import styles from "./flow-summary.scss"
           <g transform="translate(500, 500)">
             <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
             <ExternalHosts hosts={externalHosts}/>

@@ -1,0 +1,14 @@
+:local {
+  .current {
+    fill : hsla(217, 90%, 20%, 0.9);
+  }
+  
+  .button {
+    fill         : hsl(217, 90%, 20%);
+    fill-opacity : 0;
+
+    &:hover {
+      fill-opacity : 0.8;
+    }
+  }
+}

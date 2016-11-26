@@ -2,13 +2,14 @@ import React                     from "react"
 import { scaleLog, scaleLinear } from "d3-scale"
 import Path                      from "~/components/svg/Path"
 import T                         from "~/lib/types"
+import styles                    from "./flow-summary.scss"
 
 const width  = 1000
 const height = 100
 const padding = { top : 5, left : 15, right : 15 }
 const trafficScale = scaleLog().domain([1, 1000]).range([0.1, height / 3]).clamp(true)
 
-const FlowSummary = ({ summary, from, to }) => {
+const FlowSummary = ({ summary, from, to, updateSpan }) => {
   if (!summary) return null
   const timeSpan = [summary[0].time, summary[summary.length - 1].time]
   const timeScale = scaleLinear().domain(timeSpan).range([padding.left, width - padding.left - padding.right])
@@ -20,11 +21,12 @@ const FlowSummary = ({ summary, from, to }) => {
 
   return (
     <g transform={`translate(${padding.left},${padding.top})`}>
-      <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`}/>
+      <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/>
       {summary.map(({ time, mbps_inbound, mbps_outbound }, i) => (
         <g key={i} transform={`translate(${timeScale(time)},${height / 2})`}>
           <rect y={0.5} height={trafficScale(mbps_outbound)} {...common} transform="scale(1,-1)"/>
           <rect y={0.5} height={trafficScale(mbps_inbound)} {...common}/>
+          <rect y={-height / 2} height={height} {...common} onClick={() => updateSpan(time)} className={styles.button}/>
         </g>
       ))}
     </g>
@@ -32,13 +34,14 @@ const FlowSummary = ({ summary, from, to }) => {
 }
 
 FlowSummary.propTypes = {
-  summary : T.arrayOf(T.shape({
+  summary    : T.arrayOf(T.shape({
     time          : T.number.isRequired,
     mbps_inbound  : T.number.isRequired,
     mbps_outbound : T.number.isRequired,
   })),
-  from    : T.number.isRequired,
-  to      : T.number.isRequired,
+  from       : T.number.isRequired,
+  to         : T.number.isRequired,
+  updateSpan : T.func.isRequired,
 }
 
 export default FlowSummary
