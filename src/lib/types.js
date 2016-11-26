@@ -18,7 +18,7 @@ const globalTypes = {
   strokeWidth    : T.number,
   strokeLinecap  : T.oneOf(["butt", "square", "round"]),
   strokeLinejoin : T.oneOf(["miter", "round", "bevel"]),
-  strokeLash     : T.string,
+  strokeDash     : T.string,
   fill           : T.string,
   fillOpacity    : T.number,
 }
