@@ -11,16 +11,13 @@ import { aggregateFlows } from "~/lib/aggregateFlows"
 import styles             from "./app.scss"
 
 /*
-const minTime = 1366020001
+const minTime = 136602000q
 const maxTime = 1364802616
 */
 
-
-const span = 120
-const from = 1364902616
+const span = 300
+const from = 1364902500
 const to   = from + span
-
-const mbps = seconds => bytes => bytes * 8 / 1000000 / seconds
 
 class App extends React.Component {
   state = { from, to, span }
@@ -30,12 +27,12 @@ class App extends React.Component {
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
-    fetch(`http://localhost:3001/flow?time=gt.${from}&time=lt.${to}`)
+    fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
-      .then(aggregateFlows(mbps(span)))
+      .then(aggregateFlows)
       .then(flows => this.setState({
         flows,
-        hostStats     : hostStats(mbps(span))(flows),
+        hostStats     : hostStats(flows),
         externalHosts : externalHosts(flows),
       }))
   }

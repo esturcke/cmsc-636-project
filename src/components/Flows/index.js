@@ -12,8 +12,8 @@ const Flows = ({ hosts, flows }) => (
       const from = hosts[flow.srcip]
       const to   = hosts[flow.dstip]
       const strokeWidth = width(max([
-        flow.srctotalbytes,
-        flow.dsttotalbytes,
+        flow.mbps_sent,
+        flow.mbps_received,
       ]))
       return from && to ? (
         <Line key={i}

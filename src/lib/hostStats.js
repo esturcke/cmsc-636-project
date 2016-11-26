@@ -1,22 +1,22 @@
 import { sumBy, flow, groupBy, mapValues } from "lodash/fp"
 import { assignWith }                      from "lodash"
 
-const stats = (from, to, mbps) => flows => ({
+const stats = (from, to) => flows => ({
   traffic : {
-    in  : mbps(sumBy(`${to}totalbytes`)(flows)),
-    out : mbps(sumBy(`${from}totalbytes`)(flows)),
+    in  : sumBy(`mbps_${to}`)(flows),
+    out : sumBy(`mbps_${from}`)(flows),
   },
 })
 
-const hostStats = mbps => flows => {
+const hostStats = flows => {
   const srcStats = flow(
     groupBy("srcip"),
-    mapValues(stats("src", "dst", mbps)),
+    mapValues(stats("received", "sent")),
   )(flows)
 
   const dstStats = flow(
     groupBy("dstip"),
-    mapValues(stats("dst", "src", mbps)),
+    mapValues(stats("sent", "received")),
   )(flows)
 
   return assignWith({}, srcStats, dstStats, (...stats) => ({
