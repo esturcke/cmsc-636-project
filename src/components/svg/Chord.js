@@ -11,7 +11,7 @@ const radius = (p1, p2) => radiusScale(distance(p1, p2))
 
 const d = ({ from, to }) => {
   const clockwise = false
-  return path({ from : from })
+  return path({ from })
     .arc({ to, radius : radius(from, to), clockwise })
     .d
 }
