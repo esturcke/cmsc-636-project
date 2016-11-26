@@ -21,7 +21,7 @@ const FlowSummary = ({ summary, from, to, updateSpan }) => {
 
   return (
     <g transform={`translate(${padding.left},${padding.top})`}>
-      <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/>
+      {from && to ? <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/> : null}
       {summary.map(({ time, mbps_inbound, mbps_outbound }, i) => (
         <g key={i} transform={`translate(${timeScale(time)},${height / 2})`}>
           <rect y={0.5} height={trafficScale(mbps_outbound)} {...common} transform="scale(1,-1)"/>
