@@ -8,6 +8,14 @@ const width = scaleLog().domain([1 / 1000, 1000]).range([1 / 8, 4]).clamp(true)
 
 const Flows = ({ hosts, flows }) => (
   <g>
+    <defs>
+    <linearGradient id="flow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stopColor="hsl(136, 62%, 51%)"/>
+      <stop offset="20%"  stopColor="#999"/>
+      <stop offset="80%"  stopColor="#999"/>
+      <stop offset="100%" stopColor="hsl(0, 62%, 51%)"/>
+    </linearGradient>
+  </defs>
     {values(flows).map((flow, i) => {
       const from = hosts[flow.srcip]
       const to   = hosts[flow.dstip]
@@ -19,7 +27,7 @@ const Flows = ({ hosts, flows }) => (
         <Line key={i}
           from={from.position}
           to={to.position}
-          stroke="#999"
+          stroke="url(#flow)"
           strokeWidth={strokeWidth}
           strokeOpacity={0.2}
           fill="none"
