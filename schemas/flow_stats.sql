@@ -15,7 +15,7 @@ CREATE TABLE flow_stats AS SELECT
   direction,
   time / bucket * bucket AS time,
   COUNT(*) AS flows,
-  SUM(srctotalbytes) * 8 / 1000000.0 / bucket AS mbss_sent,
+  SUM(srctotalbytes) * 8 / 1000000.0 / bucket AS mbps_sent,
   SUM(dsttotalbytes) * 8 / 1000000.0 / bucket AS mbps_received,
   SUM(srcpacketcount) * 1.0 / bucket AS packet_rate_sent,
   SUM(dstpacketcount) * 1.0 / bucket AS packet_rate_received
