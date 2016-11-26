@@ -4,6 +4,7 @@ import Legend             from "~/components/Legend"
 import Flows              from "~/components/Flows"
 import Traffic            from "~/components/Traffic"
 import ExternalHosts      from "~/components/ExternalHosts"
+import FlowSummary        from "~/components/FlowSummary"
 import { processHosts }   from "~/lib/hosts"
 import { hostStats }      from "~/lib/hostStats"
 import { externalHosts }  from "~/lib/externalHosts"
@@ -27,6 +28,9 @@ class App extends React.Component {
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
+    fetch("http://localhost:3001/flow_summary")
+      .then(response => response.json())
+      .then(flowSummary => this.setState({ flowSummary }))
     fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
       .then(aggregateFlows)
@@ -38,16 +42,19 @@ class App extends React.Component {
   }
 
   render() {
-    const { hosts, externalHosts, flows, hostStats } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
-        <svg width={1000} height={1000}><g transform="translate(500, 500)">
-          <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
-          <ExternalHosts hosts={externalHosts}/>
-          <HostCircle hosts={hosts}/>
-          <Traffic hosts={hosts} stats={hostStats}/>
-        </g></svg>
+        <svg width={1000} height={1000}>
+          <FlowSummary summary={flowSummary} from={from} to={to}/>
+          <g transform="translate(500, 500)">
+            <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
+            <ExternalHosts hosts={externalHosts}/>
+            <HostCircle hosts={hosts}/>
+            <Traffic hosts={hosts} stats={hostStats}/>
+          </g>
+        </svg>
       </div>
     )
   }
