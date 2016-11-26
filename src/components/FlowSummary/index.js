@@ -1,7 +1,6 @@
 import React                     from "react"
 import { scaleLog, scaleLinear } from "d3-scale"
 import Path                      from "~/components/svg/Path"
-import path                      from "~/lib/svg/path"
 import T                         from "~/lib/types"
 
 const width  = 1000
