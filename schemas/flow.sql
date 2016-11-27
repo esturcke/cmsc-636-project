@@ -1,8 +1,8 @@
 BEGIN;
 
 DROP TABLE IF EXISTS flow CASCADE;
-DROP TYPE IF EXISTS protocol;
-DROP TYPE IF EXISTS direction;
+DROP TYPE IF EXISTS protocol CASCADE;
+DROP TYPE IF EXISTS direction CASCADE;
 
 CREATE TYPE protocol AS ENUM ('tcp', 'udp', 'icmp');
 CREATE TYPE direction AS ENUM ('inbound', 'outbound', 'internal');

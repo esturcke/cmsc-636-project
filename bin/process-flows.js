@@ -24,6 +24,9 @@ const direction = (srcIp, dstIp) =>
   isExternal(srcIp) ? "inbound"  :
   isExternal(dstIp) ? "outbound" : "internal"
 
+// If low src port assume flow is flipped
+const flipped = flow => flow[5] <= 1024
+
 const construct = es.map((line, cb) => {
   const flow = line.split(/,/)
   if (flow.length === 1) return cb()
@@ -49,25 +52,48 @@ const construct = es.map((line, cb) => {
   // 17 firstSeenDestPacketCount
   // 18 recordForceOut
 
-  cb(null, [
-    Math.round(flow[0]),         // time
-    protocol(flow[3]),           // protocol
-    flow[5],                     // srcIp
-    flow[6],                     // dstIp
-    parseInt(flow[7]),           // srcPort
-    parseInt(flow[8]),           // dstPort
-    direction(flow[5], flow[6]), // direction
-    parseInt(flow[9]),           // moreFragment
-    parseInt(flow[10]),          // contFragment
-    parseInt(flow[11]),          // duration
-    parseInt(flow[12]),          // srcPayloadBytes
-    parseInt(flow[14]),          // srcTotalBytes
-    parseInt(flow[13]),          // dstPayloadBytes
-    parseInt(flow[15]),          // dstTotalBytes
-    parseInt(flow[16]),          // srcPacketCount
-    parseInt(flow[17]),          // dstPacketCount
-    parseInt(flow[18]),          // forcedOut
-  ].join("\t") + "\n")
+  if (flipped(flow)) {
+    cb(null, [
+      Math.round(flow[0]),         // time
+      protocol(flow[3]),           // protocol
+      flow[6],                     // srcIp
+      flow[5],                     // dstIp
+      parseInt(flow[8]),           // srcPort
+      parseInt(flow[7]),           // dstPort
+      direction(flow[6], flow[5]), // direction
+      parseInt(flow[9]),           // moreFragment
+      parseInt(flow[10]),          // contFragment
+      parseInt(flow[11]),          // duration
+      parseInt(flow[13]),          // srcPayloadBytes
+      parseInt(flow[15]),          // srcTotalBytes
+      parseInt(flow[12]),          // dstPayloadBytes
+      parseInt(flow[14]),          // dstTotalBytes
+      parseInt(flow[17]),          // srcPacketCount
+      parseInt(flow[16]),          // dstPacketCount
+      parseInt(flow[18]),          // forcedOut
+    ].join("\t") + "\n")
+  }
+  else {
+    cb(null, [
+      Math.round(flow[0]),         // time
+      protocol(flow[3]),           // protocol
+      flow[5],                     // srcIp
+      flow[6],                     // dstIp
+      parseInt(flow[7]),           // srcPort
+      parseInt(flow[8]),           // dstPort
+      direction(flow[5], flow[6]), // direction
+      parseInt(flow[9]),           // moreFragment
+      parseInt(flow[10]),          // contFragment
+      parseInt(flow[11]),          // duration
+      parseInt(flow[12]),          // srcPayloadBytes
+      parseInt(flow[14]),          // srcTotalBytes
+      parseInt(flow[13]),          // dstPayloadBytes
+      parseInt(flow[15]),          // dstTotalBytes
+      parseInt(flow[16]),          // srcPacketCount
+      parseInt(flow[17]),          // dstPacketCount
+      parseInt(flow[18]),          // forcedOut
+    ].join("\t") + "\n")
+  }
 })
 
 const removeJunk = pattern => es.map((line, cb) => { line.match(pattern) ? cb() : cb(null, line) })
