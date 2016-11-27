@@ -10,6 +10,8 @@ const polar = T.shape({
   t : T.number.isRequired,
 })
 
+const position = T.oneOfType([cartesian, polar])
+
 const globalTypes = {
   className      : T.string,
   style          : T.object,
@@ -26,7 +28,7 @@ const globalTypes = {
 const host = T.shape({
   i        : T.number.isRequired,
   angle    : T.number.isRequired,
-  position : polar.isRequired,
+  position : position.isRequired,
   ip       : T.string.isRequired,
   name     : T.string.isRequired,
   nickname : T.string.isRequired,
@@ -36,13 +38,14 @@ const host = T.shape({
 })
 
 const externalHost = T.shape({
-  position : polar.isRequired,
+  position : position.isRequired,
   ip       : T.string.isRequired,
 })
 
 const types = {
   cartesian,
   polar,
+  position,
   globalTypes,
   host,
   externalHost,

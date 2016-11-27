@@ -16,7 +16,7 @@ const minTime = 136602000q
 const maxTime = 1364802616
 */
 
-const span = 1800
+const span = 300
 const from = 1364902500
 
 class App extends React.Component {
@@ -27,21 +27,21 @@ class App extends React.Component {
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
+      .then(() => this.updateSpan(from))
     fetch("http://localhost:3001/flow_summary")
       .then(response => response.json())
       .then(flowSummary => this.setState({ flowSummary }))
-    this.updateSpan(from)
   }
 
   updateSpan = (from, to = from + span) => {
     this.setState({ from, to, span })
     fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
-      .then(aggregateFlows)
+      .then(aggregateFlows(this.state.hosts))
       .then(flows => this.setState({
         flows,
         hostStats     : hostStats(flows),
-        externalHosts : externalHosts(flows),
+        externalHosts : externalHosts(this.state.hosts)(flows),
       }))
   }
 
@@ -52,7 +52,6 @@ class App extends React.Component {
         <Legend/>
         <svg width={1000} height={1000}>
           <FlowSummary summary={flowSummary} from={from} to={to} updateSpan={this.updateSpan}/>
-          import styles from "./flow-summary.scss"
           <g transform="translate(500, 500)">
             <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
             <ExternalHosts hosts={externalHosts}/>

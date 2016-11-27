@@ -9,8 +9,8 @@ const Line = ({ from, to, ...props }) => {
 }
 
 Line.propTypes = {
-  from : T.polar.isRequired,
-  to   : T.polar.isRequired,
+  from : T.position.isRequired,
+  to   : T.position.isRequired,
   ...T.globalTypes,
 }
 

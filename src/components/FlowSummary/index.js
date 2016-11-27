@@ -39,8 +39,8 @@ FlowSummary.propTypes = {
     mbps_inbound  : T.number.isRequired,
     mbps_outbound : T.number.isRequired,
   })),
-  from       : T.number.isRequired,
-  to         : T.number.isRequired,
+  from       : T.number,
+  to         : T.number,
   updateSpan : T.func.isRequired,
 }
 

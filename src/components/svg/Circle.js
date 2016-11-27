@@ -8,7 +8,7 @@ const Circle = ({ position, radius, ...props }) => {
 }
 
 Circle.propTypes = {
-  position : T.polar.isRequired,
+  position : T.position.isRequired,
   radius   : T.number.isRequired,
   ...T.globalTypes,
 }

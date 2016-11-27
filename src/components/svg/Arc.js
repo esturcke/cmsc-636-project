@@ -1,7 +1,8 @@
-import React from "react"
-import Path  from "./Path"
-import path  from "~/lib/svg/path"
-import T     from "~/lib/types"
+import React     from "react"
+import Path      from "./Path"
+import { polar } from "~/lib/coordinates"
+import path      from "~/lib/svg/path"
+import T         from "~/lib/types"
 
 const d = ({ position, width, angle }) => {
   const p = [
@@ -20,10 +21,10 @@ const d = ({ position, width, angle }) => {
     .d
 }
 
-const Arc = ({ position, width, angle, ...global  }) => <Path d={d({ position, width, angle })} {...global}/>
+const Arc = ({ position, width, angle, ...global  }) => <Path d={d({ position : polar(position), width, angle })} {...global}/>
 
 Arc.propTypes = {
-  position : T.polar.isRequired,
+  position : T.position.isRequired,
   width    : T.number.isRequired,
   angle    : T.number.isRequired,
 }
