@@ -27,8 +27,8 @@ const cartesian = value => {
   throw new Error("This does not look like a coordinate:", value)
 }
 
-const cartesianDifference = (a, b) => ({ x : a.x - b.x, y : a.x - b.x })
-const difference         = (a, b) => cartesianDifference(cartesian(a), cartesian(b))
+const cartesianDifference = (a, b) => ({ x : a.x - b.x, y : a.y - b.y })
+const difference          = (a, b) => cartesianDifference(cartesian(a), cartesian(b))
 
 const cartesianMagnitude = ({ x, y }) => Math.sqrt(x * x + y * y)
 const magnitude          = p => cartesianMagnitude(cartesian(p))
