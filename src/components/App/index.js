@@ -53,7 +53,7 @@ class App extends React.Component {
         <svg width={1000} height={1000}>
           <FlowSummary summary={flowSummary} from={from} to={to} updateSpan={this.updateSpan}/>
           <g transform="translate(500, 500)">
-            <Flows hosts={{...hosts, ...externalHosts}} flows={flows}/>
+            <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows}/>
             <ExternalHosts hosts={externalHosts}/>
             <HostCircle hosts={hosts}/>
             <Traffic hosts={hosts} stats={hostStats}/>
