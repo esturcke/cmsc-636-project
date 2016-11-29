@@ -1,43 +1,13 @@
-import React                           from "react"
-import { scaleLog }                    from "d3-scale"
-import { voronoi }                     from "d3-voronoi"
-import { values, max }                 from "lodash"
-import { set, get, flow, reduce }      from "lodash/fp"
-import Line                            from "~/components/svg/Line"
-import { polar, difference, distance } from "~/lib/coordinates"
-import T                               from "~/lib/types"
+import React                 from "react"
+import { scaleLog }          from "d3-scale"
+import { values, max }       from "lodash"
+import Line                  from "~/components/svg/Line"
+import { polar, difference } from "~/lib/coordinates"
+import T                     from "~/lib/types"
 
 const width = scaleLog().domain([1 / 1000, 1000]).range([1 / 8, 4]).clamp(true)
 
-const name = ([ x, y ]) => `${x},${y}`
-
-const edges = ({ externalHosts, flows }) => {
-  if (externalHosts) {
-    const polygons = voronoi()
-      .extent([[-250, -250], [250, 250]])
-      .x(get("position.x"))
-      .y(get("position.y"))(values(externalHosts)).polygons()
-    const graph = reduce((graph, polygon) => {
-      for (let i = 0; i < polygon.length; i++) {
-        const v1  = polygon[(i - 1 + polygon.length) % polygon.length]
-        const v2  = polygon[i]
-        const v3  = polygon[(i + 1) % polygon.length]
-        const d12 = distance({ x : v1[0], y : v1[1] }, { x : v2[0], y : v2[1] })
-        const d23 = distance({ x : v2[0], y : v2[1] }, { x : v3[0], y : v3[1] })
-        graph = flow(
-          set([name(v2), name(v1)])(d12),
-          set([name(v2), name(v1)])(d12),
-          set([name(v2), name(v3)])(d23),
-          set([name(v3), name(v2)])(d23),
-          set([polygon.data.ip, name(v2)])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
-          set([name(v2), polygon.data.ip])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
-        )(graph)
-      }
-      return graph
-    })({})(polygons)
-
-    console.log(graph)
-  }
+const edges = ({ flows }) => {
   return values(flows)
 }
 
