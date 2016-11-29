@@ -65,6 +65,7 @@
     "minireset.css": "^0.0.2",
     "morgan": "^1.7.0",
     "multistream": "^2.1.0",
+    "node-dijkstra": "^2.3.0",
     "node-sass": "^3.11.3",
     "nodemon": "^1.11.0",
     "object-assign": "4.1.0",

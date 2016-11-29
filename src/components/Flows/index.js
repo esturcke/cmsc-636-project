@@ -1,22 +1,34 @@
-import React                           from "react"
-import { scaleLog }                    from "d3-scale"
-import { voronoi }                     from "d3-voronoi"
-import { values, max }                 from "lodash"
-import { set, get, flow, reduce }      from "lodash/fp"
-import Line                            from "~/components/svg/Line"
-import { polar, difference, distance } from "~/lib/coordinates"
-import T                               from "~/lib/types"
+import React                                                    from "react"
+import { scaleLog }                                             from "d3-scale"
+import { voronoi }                                              from "d3-voronoi"
+import { values, max, range }                                   from "lodash"
+import { set, get, flow, reduce }                               from "lodash/fp"
+import Graph                                                    from "node-dijkstra"
+import Line                                                     from "~/components/svg/Line"
+import { polar, cartesian, difference, distance, angleBetween } from "~/lib/coordinates"
+import T                                                        from "~/lib/types"
 
 const width = scaleLog().domain([1 / 1000, 1000]).range([1 / 8, 4]).clamp(true)
 
 const name = ([ x, y ]) => `${x},${y}`
 
-const edges = ({ externalHosts, flows }) => {
+const externalNodes = externalHosts => values(externalHosts)
+
+const internalNodes = internalHosts => {
+  const hosts = values(internalHosts)
+  return range(0, 2 * Math.PI - 0.001, 2 * Math.PI / 36).map(t => ({
+    position : cartesian({ t, r : 350 }),
+    hosts    : hosts.filter(host => angleBetween(host.position, { t, r : 350 }) < Math.PI / 18),
+  }))
+}
+
+const edges = ({ externalHosts, internalHosts, flows }) => {
   if (externalHosts) {
-    const polygons = voronoi()
-      .extent([[-250, -250], [250, 250]])
+    const diagram = voronoi()
+      .extent([[-500, -500], [500, 500]])
       .x(get("position.x"))
-      .y(get("position.y"))(values(externalHosts)).polygons()
+      .y(get("position.y"))([...externalNodes(externalHosts), ...internalNodes(internalHosts)])
+    const polygons = diagram.polygons()
     const graph = reduce((graph, polygon) => {
       for (let i = 0; i < polygon.length; i++) {
         const v1  = polygon[(i - 1 + polygon.length) % polygon.length]
@@ -29,14 +41,29 @@ const edges = ({ externalHosts, flows }) => {
           set([name(v2), name(v1)])(d12),
           set([name(v2), name(v3)])(d23),
           set([name(v3), name(v2)])(d23),
-          set([polygon.data.ip, name(v2)])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
-          set([name(v2), polygon.data.ip])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
         )(graph)
+
+        if (polygon.data.ip) {
+          graph = flow(
+            set([polygon.data.ip, name(v2)])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
+            set([name(v2), polygon.data.ip])(distance(polygon.data.position, { x : v2[0], y : v2[1] })),
+          )(graph)
+        }
+
+        if (polygon.data.hosts) {
+          polygon.data.hosts.forEach(({ ip, position }) => {
+            graph = flow(
+              set([ip, name(v2)])(distance(position, { x : v2[0], y : v2[1] })),
+              set([name(v2), ip])(distance(position, { x : v2[0], y : v2[1] })),
+            )(graph)
+          })
+        }
       }
       return graph
     })({})(polygons)
 
-    console.log(graph)
+    const route = new Graph(graph)
+    console.log(route.path(flows[0].srcip, flows[0].dstip))
   }
   return values(flows)
 }
@@ -69,7 +96,7 @@ const Flows = ({ internalHosts, externalHosts, flows }) => (
         <stop offset="100%" stopColor="hsl(0, 62%, 51%)"/>
       </linearGradient>
     </defs>
-    {edges({ externalHosts, flows }).map((flow, i) => {
+    {edges({ externalHosts, internalHosts, flows }).map((flow, i) => {
       const from  = internalHosts[flow.srcip] || externalHosts[flow.srcip]
       const to    = internalHosts[flow.dstip] || externalHosts[flow.dstip]
       if (!from || !to) return null

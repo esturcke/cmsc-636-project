@@ -34,10 +34,15 @@ const cartesianMagnitude = ({ x, y }) => Math.sqrt(x * x + y * y)
 const magnitude          = p => cartesianMagnitude(cartesian(p))
 const distance           = (from, to = origin) => magnitude(difference(from, to))
 
+const angle             = t => (t + Math.PI) % (2 * Math.PI) - Math.PI
+const polarAngleBetween = ({ t : t1 }, { t : t2 }) => Math.abs(angle(angle(t1) - angle(t2)))
+const angleBetween      = (a, b) => polarAngleBetween(polar(a), polar(b))
+
 export {
   polar,
   cartesian,
   magnitude,
   distance,
   difference,
+  angleBetween,
 }
