@@ -26,6 +26,9 @@ class App extends React.Component {
     fetch("http://localhost:3001/flow_summary")
       .then(response => response.json())
       .then(flowSummary => this.setState({ flowSummary }))
+    fetch("http://localhost:3001/intrusion_summary")
+      .then(response => response.json())
+      .then(intrusionSummary => this.setState({ intrusionSummary }))
   }
 
   updateSpan = (from, to = from + span) => {
@@ -43,13 +46,13 @@ class App extends React.Component {
   setShowOnly = (ip = null) => this.setState({ showOnly : ip })
 
   render() {
-    const { hosts, externalHosts, flows, hostStats, flowSummary, from, to, showOnly } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary, intrusionSummary, from, to, showOnly } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
         <svg width={1000} height={1000}>
-          <FlowSummary summary={flowSummary} from={from} to={to} updateSpan={this.updateSpan}/>
-          <g transform="translate(500, 500)">
+          <FlowSummary flows={flowSummary} intrusions={intrusionSummary} from={from} to={to} updateSpan={this.updateSpan}/>
+          <g transform="translate(500, 530)">
             <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows} showOnly={showOnly} />
             <ExternalHosts hosts={externalHosts} setShowOnly={this.setShowOnly}/>
             <HostCircle hosts={hosts}/>
