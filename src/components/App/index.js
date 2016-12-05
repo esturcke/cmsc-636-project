@@ -11,11 +11,6 @@ import { externalHosts }  from "~/lib/externalHosts"
 import { aggregateFlows } from "~/lib/aggregateFlows"
 import styles             from "./app.scss"
 
-/*
-const minTime = 136602000q
-const maxTime = 1364802616
-*/
-
 const span = 300
 const from = 1364902500
 
@@ -45,16 +40,18 @@ class App extends React.Component {
       }))
   }
 
+  setShowOnly = (ip = null) => this.setState({ showOnly : ip })
+
   render() {
-    const { hosts, externalHosts, flows, hostStats, flowSummary, from, to } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary, from, to, showOnly } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
         <svg width={1000} height={1000}>
           <FlowSummary summary={flowSummary} from={from} to={to} updateSpan={this.updateSpan}/>
           <g transform="translate(500, 500)">
-            <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows}/>
-            <ExternalHosts hosts={externalHosts}/>
+            <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows} showOnly={showOnly} />
+            <ExternalHosts hosts={externalHosts} setShowOnly={this.setShowOnly}/>
             <HostCircle hosts={hosts}/>
             <Traffic hosts={hosts} stats={hostStats}/>
           </g>

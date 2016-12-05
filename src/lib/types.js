@@ -23,6 +23,9 @@ const globalTypes = {
   strokeDash     : T.string,
   fill           : T.string,
   fillOpacity    : T.number,
+  onMouseOver    : T.func,
+  onMouseOut     : T.func,
+  display        : T.oneOf(["inline", "none"]),
 }
 
 const host = T.shape({

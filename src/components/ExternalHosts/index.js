@@ -10,18 +10,26 @@ Details.propTypes = {
   host : T.externalHost,
 }
 
-const ExternalHosts = ({ hosts }) => (
+const ExternalHosts = ({ hosts, setShowOnly }) => (
   <g>
     {values(hosts).map((host, i) => (
       <Tooltip key={i} id={`external-host-${i}`} content={<Details host={host}/>}>
-        <Circle radius={4} position={host.position} stroke="#777" fill="white"/>
+        <Circle
+          radius={4}
+          position={host.position}
+          stroke="#777"
+          fill="white"
+          onMouseOver={() => setShowOnly(host.ip)}
+          onMouseOut={() => setShowOnly()}
+        />
       </Tooltip>
     ))}
   </g>
 )
 
 ExternalHosts.propTypes = {
-  hosts : T.object,
+  hosts       : T.object,
+  setShowOnly : T.func.isRequired,
 }
 
 export default ExternalHosts

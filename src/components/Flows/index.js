@@ -11,7 +11,7 @@ const edges = ({ flows }) => {
   return values(flows)
 }
 
-const Flows = ({ internalHosts, externalHosts, flows }) => (
+const Flows = ({ internalHosts, externalHosts, flows, showOnly }) => (
   <g>
     <defs>
       <linearGradient id="right" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -60,8 +60,9 @@ const Flows = ({ internalHosts, externalHosts, flows }) => (
           to={to.position}
           stroke={`url(#${direction})`}
           strokeWidth={strokeWidth}
-          strokeOpacity={0.2}
+          strokeOpacity={showOnly && (showOnly === from.ip || showOnly === to.ip) ? 0.7 : 0.2}
           fill="none"
+          display={showOnly && showOnly !== from.ip && showOnly !== to.ip ? "none" : "inline"}
         />
       )
     })}
@@ -71,7 +72,8 @@ const Flows = ({ internalHosts, externalHosts, flows }) => (
 Flows.propTypes = {
   internalHosts : T.object,
   externalHosts : T.object,
-  flows : T.array,
+  flows         : T.array,
+  showOnly      : T.string,
 }
 
 export default Flows
