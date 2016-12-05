@@ -17,7 +17,6 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
   const common = {
     x     : 0,
     width : timeScale(flows[1].time) - timeScale(flows[0].time),
-    opacity : 0.3,
   }
 
   return (
@@ -25,14 +24,14 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
       {from && to ? <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/> : null}
       {flows.map(({ time, mbps_inbound, mbps_outbound }, i) => (
         <g key={i} transform={`translate(${timeScale(time)},${height / 2})`}>
-          <rect y={1} height={trafficScale(mbps_outbound)} {...common} transform="scale(1,-1)"/>
-          <rect y={1} height={trafficScale(mbps_inbound)} {...common}/>
+          <rect y={1} height={trafficScale(mbps_outbound)} {...common} transform="scale(1,-1)" className={styles.out}/>
+          <rect y={1} height={trafficScale(mbps_inbound)} {...common} className={styles.in}/>
           <rect y={-height / 2} height={height} {...common} onClick={() => updateSpan(time)} className={styles.button}/>
         </g>
       ))}
       {intrusions.map(({ time, deny_events }, i) => (
         <g key={i} transform={`translate(${timeScale(time)},${height / 2})`}>
-          <rect y={-denyScale(deny_events) / 2} height={denyScale(deny_events)} {...common} fill="red"/>
+          <rect y={-denyScale(deny_events) / 2} height={denyScale(deny_events)} {...common} className={styles.deny}/>
         </g>
       ))}
     </g>

@@ -11,4 +11,16 @@
       fill-opacity : 0.8;
     }
   }
+
+  .in {
+    fill : hsla(217, 70%, 60%, 0.4);
+  }
+
+  .out {
+    fill : hsla(262, 70%, 60%, 0.4);
+  }
+
+  .deny {
+    fill : hsla(0, 70%, 60%, 0.4);
+  }
 }
