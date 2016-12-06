@@ -16,8 +16,9 @@
     "process-hosts": "psql cmsc-636 -f schemas/host.sql && babel-node bin/process-hosts.js | psql cmsc-636",
     "process-flows": "psql cmsc-636 -f schemas/flow.sql && babel-node bin/process-flows.js | psql cmsc-636",
     "process-intrusions": "psql cmsc-636 -f schemas/intrusion.sql && babel-node bin/process-intrusions.js | psql cmsc-636",
-    "rest-api": "postgrest 'host=localhost dbname=cmsc-636 port=5432' -p 3001 -a esturcke -m 50000",
-    "server": "yarn mongo-daemon && yarn rest-api-daemon",
+    "rest-api": "postgrest postgres://anon@localhost:5432/cmsc-636 -p 3001 -a anon -m 50000 -j `pwgen -s 64 1`",
+    "rest-api-daemon" : "nohup yarn run rest-api >> logs/postgrest.log 2>&1 &",
+    "server": "yarn rest-api-daemon",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom"
   },
