@@ -1,10 +1,10 @@
 :local .legend {
   position   : absolute;
-  bottom     : 2rem;
+  bottom     : calc(100vh - 1000px);
   left       : 2rem;
-  border     : 1px solid #ddd;
   background : rgba(255, 255, 255, 0.8);
   padding    : 1rem;
+  z-index    : 1;
 
   h1 {
     font-weight : 600;

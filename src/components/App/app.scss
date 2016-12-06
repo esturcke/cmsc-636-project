@@ -10,7 +10,9 @@
 
   > svg { 
     display    : block;
-    margin     : auto;
+    position   : absolute;
+    top        : 1rem;
+    left       : 1rem;
     border     : 1px solid #ccc;
     background : white;
   }
