@@ -11,12 +11,12 @@ const stats = (from, to) => flows => ({
 const hostStats = flows => {
   const srcStats = flow(
     groupBy("srcip"),
-    mapValues(stats("received", "sent")),
+    mapValues(stats("sent", "received")),
   )(flows)
 
   const dstStats = flow(
     groupBy("dstip"),
-    mapValues(stats("sent", "received")),
+    mapValues(stats("received", "sent")),
   )(flows)
 
   return assignWith({}, srcStats, dstStats, (...stats) => ({
