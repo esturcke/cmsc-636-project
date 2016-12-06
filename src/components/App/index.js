@@ -5,13 +5,14 @@ import Flows              from "~/components/Flows"
 import Traffic            from "~/components/Traffic"
 import ExternalHosts      from "~/components/ExternalHosts"
 import FlowSummary        from "~/components/FlowSummary"
+import HostTable          from "~/components/HostTable"
 import { processHosts }   from "~/lib/hosts"
 import { hostStats }      from "~/lib/hostStats"
 import { externalHosts }  from "~/lib/externalHosts"
 import { aggregateFlows } from "~/lib/aggregateFlows"
 import styles             from "./app.scss"
 
-const span = 300
+const span = 60
 const from = 1364902500
 
 class App extends React.Component {
@@ -59,6 +60,9 @@ class App extends React.Component {
             <Traffic hosts={hosts} stats={hostStats}/>
           </g>
         </svg>
+        <div className={styles.tables}>
+          <HostTable hosts={hosts} hostStats={hostStats}/>
+        </div>
       </div>
     )
   }

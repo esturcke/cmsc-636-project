@@ -17,4 +17,18 @@
     background : white;
   }
 
+  .tables {
+    position : absolute;
+    top      : 1rem;
+    right    : 1rem;
+    left     : calc(2rem + 1000px);
+    height   : calc(1000px + 1rem);
+    display  : flex;
+    flex-direction : column;
+
+    > div {
+      margin-bottom : 1rem;
+    }
+  }
+
 }
