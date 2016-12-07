@@ -1,10 +1,10 @@
 :local {
   .current {
-    fill : hsla(217, 90%, 20%, 0.9);
+    fill : hsla(217, 95%, 30%, 0.9);
   }
   
   .button {
-    fill         : hsl(217, 90%, 20%);
+    fill         : hsl(217, 95%, 20%);
     fill-opacity : 0;
 
     &:hover {
@@ -22,5 +22,28 @@
 
   .deny {
     fill : hsla(0, 70%, 60%, 0.4);
+  }
+
+  .dateMarker {
+    stroke : hsla(0, 0, 0, 0.3);
+    stroke-width : 1;
+    fill   : none;
+  }
+
+  .workdayMarker {
+    stroke           : hsla(0, 0, 0, 0.2);
+    stroke-width     : 1;
+    fill             : none;
+  }
+
+  .offHours {
+    stroke : none;
+    fill   : rgba(0, 0, 0, 0.05);
+  }
+
+  .date {
+    fill : white;
+    stroke : hsla(0, 0, 0, 0.3);
+    stroke-width     : 1;
   }
 }
