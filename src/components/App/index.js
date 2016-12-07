@@ -7,6 +7,7 @@ import Traffic            from "~/components/Traffic"
 import ExternalHosts      from "~/components/ExternalHosts"
 import FlowSummary        from "~/components/FlowSummary"
 import HostTable          from "~/components/HostTable"
+import FlowTable          from "~/components/FlowTable"
 import { processHosts }   from "~/lib/hosts"
 import { hostStats }      from "~/lib/hostStats"
 import { externalHosts }  from "~/lib/externalHosts"
@@ -88,6 +89,7 @@ class App extends React.Component {
         />
         <div className={styles.tables}>
           <HostTable hosts={hosts} hostStats={hostStats}/>
+          <FlowTable flows={flows}/>
         </div>
         <Loading loading={loading}/>
       </div>

@@ -1,0 +1,24 @@
+:local {
+  .wrapper {
+    display : flex;
+
+    .srcip, .dstip {
+      width : 65px;
+    }
+  
+    .arrow {
+      margin : 0 2px;
+      opacity : 0.5;
+    }
+  
+    .port {
+      margin-left : 2px;
+      opacity     : 0.5;
+    }
+
+    .service {
+      margin-left : 2px;
+      opacity     : 0.5;
+    }
+  }
+}
