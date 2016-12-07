@@ -1,6 +1,6 @@
 import React                     from "react"
 import { scaleLog, scaleLinear } from "d3-scale"
-import { range }                 from "lodash"
+import { range, max }            from "lodash"
 import Path                      from "~/components/svg/Path"
 import T                         from "~/lib/types"
 import styles                    from "./flow-summary.scss"
@@ -58,7 +58,7 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
       })}
       {from && to ? (
         <g>
-          <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/>
+          <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${max([timeScale(to), timeScale(from) + 1])} ${height} l 0 ${-height} Z`} className={styles.current}/>
           <text x="0" y={height + 30} fill="#333" fontWeight="bold">{currentDate(from)}</text>
         </g>
         ) : null}
