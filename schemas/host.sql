@@ -1,9 +1,9 @@
 BEGIN;
 
-DROP TABLE host;
-DROP TYPE enterpriseSite;
-DROP TYPE hostType;
-DROP TYPE serverService;
+DROP TABLE IF EXISTS host;
+DROP TYPE IF EXISTS enterpriseSite;
+DROP TYPE IF EXISTS hostType;
+DROP TYPE IF EXISTS serverService;
 
 CREATE TYPE enterpriseSite AS ENUM ('1', '2', '3');
 CREATE TYPE hostType AS ENUM ('workstation', 'administrator', 'server');
