@@ -2,6 +2,7 @@ import React                        from "react"
 import { AutoSizer, Column, Table } from "react-virtualized"
 import { get }                      from "lodash"
 import { naturalSort }              from "javascript-natural-sort"
+import Traffic                      from "~/components/formatters/Traffic"
 import T                            from "~/lib/types"
 import styles                       from "./host-table.scss"
 
@@ -25,13 +26,13 @@ const HostTable = ({ hosts = {}, hostStats = {} }) => {
         <Column
           label="Traffic In"
           dataKey="traffic-in"
-          cellRenderer={({ rowData }) => get(rowData, "traffic.in", 0).toLocaleString(undefined, { maximumSignificantDigits: 2 })}
+          cellRenderer={({ rowData }) => <Traffic mbps={get(rowData, "traffic.in", 0)}/>}
           width={100}
         />
         <Column
           label="Traffic Out"
           dataKey="traffic-out"
-          cellRenderer={({ rowData }) => get(rowData, "traffic.out", 0).toLocaleString(undefined, { maximumSignificantDigits: 2 })}
+          cellRenderer={({ rowData }) => <Traffic mbps={get(rowData, "traffic.out", 0)}/>}
           width={100}
         />
       </Table>
