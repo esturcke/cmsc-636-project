@@ -11,6 +11,15 @@ const padding = { top : 30, left : 10, right : 10 }
 const trafficScale = scaleLog().domain([1, 700]).range([0.1, height / 2]).clamp(true)
 const denyScale    = scaleLog().domain([5000, 50000]).range([0.1, 15]).clamp(true)
 
+const dateFormat = new Intl.DateTimeFormat(undefined, {
+  weekday : "short",
+  day     : "numeric",
+  month   : "short",
+  hour    : "numeric",
+  minute  : "numeric",
+}).format
+const currentDate = from => dateFormat(from * 1000 + 5 * 3600 * 1000)
+
 const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
   if (!flows || !intrusions) return null
   const timeSpan = [flows[0].time, flows[flows.length - 1].time]
@@ -34,7 +43,7 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
         const eight = timeScale(time + 8 * 3600)
         const five  = timeScale(time + 17 * 3600)
         const end   = timeScale(time + 24 * 3600)
-        const day   = format(new Date(time * 1000))
+        const day   = format(new Date(time * 1000 + 8 * 3600 * 1000))
         return (
 					<g key={i}>
 						<rect x={start} width={eight - start} y={0} height={height} className={styles.offHours}/>
@@ -47,7 +56,12 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
           </g>
 				)
       })}
-      {from && to ? <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/> : null}
+      {from && to ? (
+        <g>
+          <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/>
+          <text x={padding.left} y={height + 50} fill="#333" fontWeight="bold">{currentDate(from)}</text>
+        </g>
+        ) : null}
       {flows.map(({ time, mbps_inbound, mbps_outbound }, i) => (
         <g key={i} transform={`translate(${timeScale(time)},${height / 2})`}>
           <rect y={1} height={trafficScale(mbps_outbound)} {...common} transform="scale(1,-1)" className={styles.out}/>
