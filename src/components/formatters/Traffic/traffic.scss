@@ -1,0 +1,13 @@
+:local {
+  .wrapper {
+    display : flex;
+
+    .value {
+      width : 5ch;
+    }
+
+    .units {
+      opacity : 0.5;
+    }
+  }
+}
