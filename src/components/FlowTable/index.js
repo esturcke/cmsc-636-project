@@ -37,13 +37,13 @@ const FlowTable = ({ flows = [] }) => {
         <Column
           label="Receive"
           dataKey="receive"
-          width={60}
+          width={80}
           cellRenderer={({ rowData : { mbps_received } }) => <Traffic mbps={mbps_received}/>}
         />
         <Column
           label="Send"
           dataKey="send"
-          width={60}
+          width={80}
           cellRenderer={({ rowData : { mbps_sent } }) => <Traffic mbps={mbps_sent}/>}
         />
       </Table>
