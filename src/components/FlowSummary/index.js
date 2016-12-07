@@ -58,7 +58,8 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
       })}
       {from && to ? (
         <g>
-          <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${max([timeScale(to), timeScale(from) + 1])} ${height} l 0 ${-height} Z`} className={styles.current}/>
+          <Path d={`M ${timeScale(from)} 0 l 0 ${height + 4} L ${max([timeScale(to), timeScale(from) + 0.5])} ${height + 4} l 0 ${-height} Z`} className={styles.current}/>
+          <Path d={`M ${(timeScale(from) + timeScale(to)) / 2} ${height + 2} l 7 7 l -14 0 Z`} className={styles.current}/>
           <text x="0" y={height + 30} fill="#333" fontWeight="bold">{currentDate(from)}</text>
         </g>
         ) : null}
