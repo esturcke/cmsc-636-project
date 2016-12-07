@@ -40,7 +40,7 @@ const HostTable = ({ hosts = {}, hostStats = {} }) => {
 }
 
 HostTable.propTypes = {
-  hosts     : T.host,
+  hosts     : T.object,
   hostStats : T.object,
 }
 
