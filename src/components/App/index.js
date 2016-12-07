@@ -69,7 +69,7 @@ class App extends React.Component {
           <g transform="translate(500, 530)">
             <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows} showOnly={showOnly} />
             <ExternalHosts hosts={externalHosts} setShowOnly={this.setShowOnly}/>
-            <HostCircle hosts={hosts}/>
+            <HostCircle hosts={hosts} setShowOnly={this.setShowOnly}/>
             <Traffic hosts={hosts} stats={hostStats}/>
           </g>
         </svg>
