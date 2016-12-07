@@ -81,7 +81,7 @@
     "react-bootstrap": "^0.30.7",
     "react-dev-utils": "^0.4.0",
     "react-dom": "^15.4.1",
-    "react-virtualized": "^8.7.1",
+    "react-virtualized": "8.8.0-alpha.1",
     "recursive-readdir": "2.1.0",
     "rimraf": "2.5.4",
     "sass-loader": "^4.0.2",
