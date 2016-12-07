@@ -7,7 +7,7 @@ import styles                    from "./flow-summary.scss"
 
 const width  = 1000
 const height = 60
-const padding = { top : 30, left : 10, right : 10 }
+const padding = { top : 15, left : 10, right : 10 }
 const trafficScale = scaleLog().domain([1, 700]).range([0.1, height / 2]).clamp(true)
 const denyScale    = scaleLog().domain([5000, 50000]).range([0.1, 15]).clamp(true)
 
@@ -59,7 +59,7 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
       {from && to ? (
         <g>
           <Path d={`M ${timeScale(from)} 0 l 0 ${height} L ${timeScale(to)} ${height} l 0 ${-height} Z`} className={styles.current}/>
-          <text x={padding.left} y={height + 50} fill="#333" fontWeight="bold">{currentDate(from)}</text>
+          <text x="0" y={height + 30} fill="#333" fontWeight="bold">{currentDate(from)}</text>
         </g>
         ) : null}
       {flows.map(({ time, mbps_inbound, mbps_outbound }, i) => (

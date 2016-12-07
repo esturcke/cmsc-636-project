@@ -12,3 +12,6 @@ rest-api/data
 
 # Logs
 logs
+
+# Build directory
+build/

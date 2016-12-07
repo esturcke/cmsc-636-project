@@ -20,7 +20,8 @@
     "rest-api-daemon": "nohup yarn run rest-api >> logs/postgrest.log 2>&1 &",
     "server": "yarn rest-api-daemon",
     "start": "node scripts/start.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "push": "rsync -avz -e ssh build/ maiholz:~/www/"
   },
   "dependencies": {
     "@typopro/web-fira-sans": "^3.4.9",
@@ -81,6 +82,7 @@
     "react-bootstrap": "^0.30.7",
     "react-dev-utils": "^0.4.0",
     "react-dom": "^15.4.1",
+    "react-select": "^1.0.0-rc.2",
     "react-virtualized": "8.8.0-alpha.1",
     "recursive-readdir": "2.1.0",
     "rimraf": "2.5.4",

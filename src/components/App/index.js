@@ -1,4 +1,5 @@
 import React              from "react"
+import Select         from "react-select"
 import HostCircle         from "~/components/HostCircle"
 import Legend             from "~/components/Legend"
 import Flows              from "~/components/Flows"
@@ -14,27 +15,28 @@ import styles             from "./app.scss"
 
 const span = 60
 const from = 1364902500
+const host = location.hostname
 
 class App extends React.Component {
   state = {}
 
   componentDidMount() {
-    fetch("http://localhost:3001/host")
+    fetch(`http://${host}:3001/host`)
       .then(response => response.json())
       .then(processHosts)
       .then(hosts => this.setState({ hosts }))
       .then(() => this.updateSpan(from))
-    fetch("http://localhost:3001/flow_summary")
+    fetch(`http://${host}:3001/flow_summary`)
       .then(response => response.json())
       .then(flowSummary => this.setState({ flowSummary }))
-    fetch("http://localhost:3001/intrusion_summary")
+    fetch(`http://${host}:3001/intrusion_summary`)
       .then(response => response.json())
       .then(intrusionSummary => this.setState({ intrusionSummary }))
   }
 
   updateSpan = (from, to = from + span) => {
-    this.setState({ from, to, span })
-    fetch(`http://localhost:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
+    this.setState({ from, to, span : to - from })
+    fetch(`http://${host}:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
       .then(aggregateFlows(this.state.hosts))
       .then(flows => this.setState({
@@ -47,7 +49,7 @@ class App extends React.Component {
   setShowOnly = (ip = null) => this.setState({ showOnly : ip })
 
   render() {
-    const { hosts, externalHosts, flows, hostStats, flowSummary, intrusionSummary, from, to, showOnly } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary, intrusionSummary, from, to, span, showOnly } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
@@ -60,6 +62,20 @@ class App extends React.Component {
             <Traffic hosts={hosts} stats={hostStats}/>
           </g>
         </svg>
+        <Select
+          className={styles.spanSelect}
+          options={[
+            { value :   60, label : "1 minute" },
+            { value :  300, label : "5 minutes" },
+            { value :  600, label : "10 minutes" },
+            { value : 1200, label : "20 minutes" },
+            { value : 1800, label : "30 minutes" },
+            { value : 3600, label : "1 hour" },
+          ]}
+          value={span}
+          clearable={false}
+          onChange={({ value }) => this.updateSpan(from, from + value)}
+        />
         <div className={styles.tables}>
           <HostTable hosts={hosts} hostStats={hostStats}/>
         </div>
