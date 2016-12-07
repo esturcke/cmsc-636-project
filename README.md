@@ -5,7 +5,8 @@
 ### Prerequisites
 
   - [Node.js](https://nodejs.org/en/)
-  - [MongoDB](https://www.mongodb.com/)
+  - [PostgreSQL](https://www.postgresql.org)
+  - [PostgREST](http://postgrest.com/)
   - [Yarn](https://yarnpkg.com/)
 
 ### Setup
@@ -30,63 +31,42 @@ To download and extract the raw VAST data to `raw-vast-data` run:
 bin/fetch-vast-data
 ```
 
-#### Process and Populate MongoDB
+#### Process Data and Populate PostgreSQL
 
-First start MongoDB
+Create database `cmsc-636`
 
+```sql
+CREATE DATABASE "cmsc-636";
 ```
-yarn run mongo
+
+Create a user `anon`:
+
+```bash
+psql cmsc-636 < schemas/read-only.sql
 ```
 
-Then process data
+Process the data
 
+```bash
+yarn process-hosts
+yarn process-flows
+yarn process-intrusions
 ```
-yarn run process-hosts
-yarn run process-netflows
+
+Add indexes
+
+```bash
+psql cmsc-636 < schemas/{flow,intrusion}.index.sql
+```
+
+Create derived tables
+
+```bash
+psql cmsc-636 <  schemas/{flow,intrusion}_*.sql
 ```
 
 #### Start the REST API
 
-First start MongoDB
-
 ```
-yarn run mongo
+yarn rest-api
 ```
-
-Then start the REST API
-
-```
-yarn run rest-api
-```
-
-## Data Types
-
-### Internal hosts
-
-| Field    | [BSON Type](https://docs.mongodb.com/v3.2/reference/bson-types/) | Abstract type | Description                                          |
-| ---      | ---                                                              | ---           | ---                                                  |
-| ip       | `int`                                                            | nominal       | IPv4 Address                                         |
-| name     | `string`                                                         | nominal       | Hostname                                             |
-| nickName | `string`                                                         | nominal       | Short cute name                                      |
-| site     | `string`                                                         | nominal       | One of 3 enterprise sites                            |
-| type     | `string`                                                         | nominal       | Host type (`server`, `administrator`, `workstation`) |
-| service  | `string`                                                         | nominal       | Type of service of server (`domain`, `smtp`, `http`) |
-
-### Netflow
-
-| Field           | [BSON Type](https://docs.mongodb.com/v3.2/reference/bson-types/) | Abstract type | Description                 |
-| ---             | ---                                                              | ---           | ---                         |
-| time            | `date`                                                           | interval      | Time of final packet        |
-| protocol        | `string`                                                         | nominal       | Protocol (`tcp`, `udp`)     |
-| srcIp           | `int`                                                            | nominal       | Source IPv4 Address         |
-| srcPort         | `int`                                                            | nominal       | Source Port                 |
-| dstIp           | `int`                                                            | nominal       | Destination IPv4 Address    |
-| dstPort         | `int`                                                            | nominal       | Destination Port            |
-| duration        | `int`                                                            | ratio         | Session duration in seconds |
-| srcPayloadBytes | `int`                                                            | ratio         | Payload bytes sent          |
-| srcTotalBytes   | `int`                                                            | ratio         | Payload bytes received      |
-| dstPayloadBytes | `int`                                                            | ratio         | Total bytes sent            |
-| dstTotalBytes   | `int`                                                            | ratio         | Total bytes received        |
-| srcPacketCount  | `int`                                                            | ratio         | Packets sent                |
-| dstPacketCount  | `int`                                                            | ratio         | Packets received            |
-| forcedOut       | `string`                                                         | nominal       | ?                           |
