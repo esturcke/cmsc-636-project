@@ -54,7 +54,7 @@ const FlowSummary = ({ flows, intrusions, from, to, updateSpan }) => {
             <rect x={start} width={end - start} y={-15} height={15} className={styles.date}/>
             <text x={(start + end) / 2} y={-2} fill="#333" textAnchor="middle">{day}</text>
           </g>
-				)
+        )
       })}
       {from && to ? (
         <g>
