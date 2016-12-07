@@ -1,5 +1,5 @@
 import React              from "react"
-import Select         from "react-select"
+import Select             from "react-select"
 import HostCircle         from "~/components/HostCircle"
 import Legend             from "~/components/Legend"
 import Flows              from "~/components/Flows"
@@ -11,31 +11,40 @@ import { processHosts }   from "~/lib/hosts"
 import { hostStats }      from "~/lib/hostStats"
 import { externalHosts }  from "~/lib/externalHosts"
 import { aggregateFlows } from "~/lib/aggregateFlows"
+import T                  from "~/lib/types"
 import styles             from "./app.scss"
 
 const span = 60
 const from = 1364902500
 const host = location.hostname
 
+const Loading = ({ loading }) => loading ? <div className={styles.loading}>Loading</div> : null
+
+Loading.propTypes = {
+  loading : T.bool.isRequired,
+}
+
 class App extends React.Component {
-  state = {}
+  state = { loading : true }
 
   componentDidMount() {
-    fetch(`http://${host}:3001/host`)
-      .then(response => response.json())
-      .then(processHosts)
-      .then(hosts => this.setState({ hosts }))
-      .then(() => this.updateSpan(from))
-    fetch(`http://${host}:3001/flow_summary`)
-      .then(response => response.json())
-      .then(flowSummary => this.setState({ flowSummary }))
-    fetch(`http://${host}:3001/intrusion_summary`)
-      .then(response => response.json())
-      .then(intrusionSummary => this.setState({ intrusionSummary }))
+    Promise.all([
+      fetch(`http://${host}:3001/host`)
+        .then(response => response.json())
+        .then(processHosts)
+        .then(hosts => this.setState({ hosts }))
+        .then(() => this.updateSpan(from)),
+      fetch(`http://${host}:3001/flow_summary`)
+        .then(response => response.json())
+        .then(flowSummary => this.setState({ flowSummary })),
+      fetch(`http://${host}:3001/intrusion_summary`)
+        .then(response => response.json())
+        .then(intrusionSummary => this.setState({ intrusionSummary })),
+    ]).then(() => this.setState({ loading : false }))
   }
 
   updateSpan = (from, to = from + span) => {
-    this.setState({ from, to, span : to - from })
+    this.setState({ from, to, span : to - from, loading : true })
     fetch(`http://${host}:3001/flow_stats?time=gte.${from}&time=lt.${to}`)
       .then(response => response.json())
       .then(aggregateFlows(this.state.hosts))
@@ -44,12 +53,13 @@ class App extends React.Component {
         hostStats     : hostStats(flows),
         externalHosts : externalHosts(this.state.hosts)(flows),
       }))
+      .then(() => this.setState({ loading : false }))
   }
 
   setShowOnly = (ip = null) => this.setState({ showOnly : ip })
 
   render() {
-    const { hosts, externalHosts, flows, hostStats, flowSummary, intrusionSummary, from, to, span, showOnly } = this.state
+    const { hosts, externalHosts, flows, hostStats, flowSummary, intrusionSummary, from, to, span, showOnly, loading } = this.state
     return (
       <div className={styles.app}>
         <Legend/>
@@ -79,6 +89,7 @@ class App extends React.Component {
         <div className={styles.tables}>
           <HostTable hosts={hosts} hostStats={hostStats}/>
         </div>
+        <Loading loading={loading}/>
       </div>
     )
   }
