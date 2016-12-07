@@ -1,5 +1,11 @@
 # VizSec Semester Project for CMSC 636 / Data Visualization
 
+## Overview
+
+[Demo site](http://maiholz.org)
+
+![Screen shot](screen-shot.png)
+
 ## Getting Started
 
 ### Prerequisites
