@@ -1,5 +1,6 @@
 import React                        from "react"
 import { AutoSizer, Column, Table } from "react-virtualized"
+import { filter }                   from "lodash"
 import Connection                   from "~/components/formatters/Connection"
 import Traffic                      from "~/components/formatters/Traffic"
 import T                            from "~/lib/types"
@@ -11,7 +12,8 @@ const timeFormat = time => new Intl.DateTimeFormat(undefined, {
   second : "numeric",
 }).format(time * 1000 + 5 * 3600 * 1000)
 
-const FlowTable = ({ flows = [] }) => {
+const FlowTable = ({ flows = [], showOnly }) => {
+  const filtered = showOnly ? filter(flows, ({ srcip, dstip }) => srcip === showOnly || dstip === showOnly) : flows
   return (
     <div className={styles.table}><AutoSizer>{({ height, width }) => (
       <Table
@@ -19,8 +21,8 @@ const FlowTable = ({ flows = [] }) => {
         height={height}
         headerHeight={20}
         rowHeight={20}
-        rowCount={flows.length}
-        rowGetter={({ index }) => flows[index]}
+        rowCount={filtered.length}
+        rowGetter={({ index }) => filtered[index]}
       >
         <Column
           label="Time"
@@ -52,7 +54,8 @@ const FlowTable = ({ flows = [] }) => {
 }
 
 FlowTable.propTypes = {
-  flows : T.array,
+  flows    : T.array,
+  showOnly : T.string,
 }
 
 export default FlowTable
