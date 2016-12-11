@@ -2033,9 +2033,9 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-detect-port@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/detect-port/-/detect-port-1.0.6.tgz#44b57a9be268ee235d441395b4619b78a41545ef"
+detect-port@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/detect-port/-/detect-port-1.0.7.tgz#f8cddc7b996fb8f8019a5ab50c4b5f3a9b51b046"
 
 diff@^3.0.0:
   version "3.0.1"
@@ -4647,9 +4647,9 @@ pg-types@1.*:
     postgres-date "~1.0.0"
     postgres-interval "~1.0.0"
 
-pg@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/pg/-/pg-6.1.0.tgz#4ebc58100a79187b6b98fa5caf1675d669926b41"
+pg@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-6.1.1.tgz#09709597013dea436f5ca67433a5f24131f18742"
   dependencies:
     buffer-writer "1.0.1"
     packet-reader "0.2.0"
@@ -5156,9 +5156,9 @@ react-bootstrap@^0.30.7:
     uncontrollable "^4.0.1"
     warning "^3.0.0"
 
-react-dev-utils@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.4.1.tgz#06385e3c15014d4dfa0a6134bfeeeb0700cc04dd"
+react-dev-utils@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.4.2.tgz#ba6fae581fe945a2fc402e9b27c71fda4f62f6a1"
   dependencies:
     ansi-html "0.0.5"
     chalk "1.1.3"
