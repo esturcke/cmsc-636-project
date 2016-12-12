@@ -68,8 +68,8 @@ class App extends React.Component {
           <FlowSummary flows={flowSummary} intrusions={intrusionSummary} from={from} to={to} updateSpan={this.updateSpan}/>
           <g transform="translate(500, 530)">
             <Flows internalHosts={hosts} externalHosts={externalHosts} flows={flows} showOnly={showOnly} />
-            <ExternalHosts hosts={externalHosts} setShowOnly={this.setShowOnly}/>
-            <HostCircle hosts={hosts} setShowOnly={this.setShowOnly}/>
+            <ExternalHosts hosts={externalHosts} setShowOnly={this.setShowOnly} showOnly={showOnly}/>
+            <HostCircle hosts={hosts} setShowOnly={this.setShowOnly} showOnly={showOnly}/>
             <Traffic hosts={hosts} stats={hostStats}/>
           </g>
         </svg>
