@@ -4,6 +4,7 @@ import { get, values, map }                        from "lodash"
 import naturalSort                                 from "javascript-natural-sort"
 import Traffic                                     from "~/components/formatters/Traffic"
 import T                                           from "~/lib/types"
+import { kind }                                    from "~/lib/hosts"
 import styles                                      from "./host-table.scss"
 
 const order = (dataKey, direction) => (a, b) => (direction === SortDirection.ASC ? 1 : -1) * naturalSort(get(a, dataKey), get(b, dataKey))
@@ -16,7 +17,13 @@ class HostTable extends React.Component {
   render() {
     const { hosts = {}, hostStats = {} } = this.props
     const { sortBy, sortDirection } = this.state
-    const data = map(values(hosts), host => ({ ...hostStats[host.ip], ...host })).filter(host => get(host, "traffic.in") || get(host, "traffic.out")).sort(order(sortBy, sortDirection))
+    const data = map(values(hosts), host => ({
+      ...hostStats[host.ip],
+      ...host,
+      kind : kind(host),
+    }))
+    .filter(host => get(host, "traffic.in") || get(host, "traffic.out"))
+    .sort(order(sortBy, sortDirection))
 
     return (
       <div className={styles.table}><AutoSizer>{({ height, width }) => (
@@ -34,6 +41,11 @@ class HostTable extends React.Component {
           <Column
             label="IP"
             dataKey="ip"
+            width={100}
+          />
+          <Column
+            label="Type"
+            dataKey="kind"
             width={100}
           />
           <Column
