@@ -16,7 +16,7 @@ class HostTable extends React.Component {
   render() {
     const { hosts = {}, hostStats = {} } = this.props
     const { sortBy, sortDirection } = this.state
-    const data = map(values(hosts), host => ({ ...hostStats[host.ip], ...host })).sort(order(sortBy, sortDirection))
+    const data = map(values(hosts), host => ({ ...hostStats[host.ip], ...host })).filter(host => get(host, "traffic.in") || get(host, "traffic.out")).sort(order(sortBy, sortDirection))
 
     return (
       <div className={styles.table}><AutoSizer>{({ height, width }) => (
