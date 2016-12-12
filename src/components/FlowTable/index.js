@@ -36,12 +36,6 @@ const FlowTable = ({ flows = [], showOnly, setShowOnly }) => {
           cellRenderer={({ rowData }) => <Connection {...rowData} showOnly={showOnly} setShowOnly={setShowOnly}/>}
         />
         <Column
-          label="Source Ports"
-          dataKey="source-ports"
-          width={100}
-          cellRenderer={({ rowData }) => <span>{rowData.srcports.sort().join(", ")}</span>}
-        />
-        <Column
           label="Receive"
           dataKey="receive"
           width={80}
@@ -52,6 +46,12 @@ const FlowTable = ({ flows = [], showOnly, setShowOnly }) => {
           dataKey="send"
           width={80}
           cellRenderer={({ rowData : { mbps_sent } }) => <Traffic mbps={mbps_sent}/>}
+        />
+        <Column
+          label="Source Ports"
+          dataKey="source-ports"
+          width={100}
+          cellRenderer={({ rowData }) => <span>{rowData.srcports.sort().join(", ")}</span>}
         />
       </Table>
     )}</AutoSizer></div>
