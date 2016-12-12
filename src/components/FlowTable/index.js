@@ -9,7 +9,6 @@ import styles                       from "./flow-table.scss"
 const timeFormat = time => new Intl.DateTimeFormat(undefined, {
   hour   : "numeric",
   minute : "numeric",
-  second : "numeric",
 }).format(time * 1000 + 5 * 3600 * 1000)
 
 const FlowTable = ({ flows = [], showOnly, setShowOnly }) => {
