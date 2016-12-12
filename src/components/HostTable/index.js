@@ -1,6 +1,7 @@
 import React                                       from "react"
 import { AutoSizer, Column, Table, SortDirection } from "react-virtualized"
 import { get, values, map }                        from "lodash"
+import classNames                                  from "classnames"
 import naturalSort                                 from "javascript-natural-sort"
 import Traffic                                     from "~/components/formatters/Traffic"
 import T                                           from "~/lib/types"
@@ -15,7 +16,7 @@ class HostTable extends React.Component {
   sort = newSort => this.setState(newSort)
 
   render() {
-    const { hosts = {}, hostStats = {} } = this.props
+    const { hosts = {}, hostStats = {}, showOnly, setShowOnly } = this.props
     const { sortBy, sortDirection } = this.state
     const data = map(values(hosts), host => ({
       ...hostStats[host.ip],
@@ -41,6 +42,7 @@ class HostTable extends React.Component {
           <Column
             label="IP"
             dataKey="ip"
+            cellRenderer={({ cellData }) => <span className={classNames(styles.host, { [styles.selected] : cellData === showOnly })} onClick={() => setShowOnly(cellData === showOnly ? null : cellData)}>{cellData}</span>}
             width={100}
           />
           <Column
@@ -67,8 +69,10 @@ class HostTable extends React.Component {
 }
 
 HostTable.propTypes = {
-  hosts     : T.object,
-  hostStats : T.object,
+  hosts       : T.object,
+  hostStats   : T.object,
+  setShowOnly : T.func.isRequired,
+  showOnly    : T.string,
 }
 
 export default HostTable

@@ -4,5 +4,14 @@
     border     : 1px solid #ccc;
     background : white;
     padding : 1rem;
+
+    .host {
+      font-weight : bold;
+      cursor      : pointer;
+
+      &.selected {
+        color : #e07d7d;
+      }
+    }
   }
 }

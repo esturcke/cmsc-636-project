@@ -88,7 +88,7 @@ class App extends React.Component {
           onChange={({ value }) => this.updateSpan(from, from + value)}
         />
         <div className={styles.tables}>
-          <HostTable hosts={hosts} hostStats={hostStats} showOnly={showOnly}/>
+          <HostTable hosts={hosts} hostStats={hostStats} setShowOnly={this.setShowOnly} showOnly={showOnly}/>
           <FlowTable flows={flows} showOnly={showOnly}/>
         </div>
         <Loading loading={loading}/>
