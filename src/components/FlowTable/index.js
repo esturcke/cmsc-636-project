@@ -37,6 +37,12 @@ const FlowTable = ({ flows = [], showOnly }) => {
           cellRenderer={({ rowData }) => <Connection {...rowData}/>}
         />
         <Column
+          label="Source Ports"
+          dataKey="source-ports"
+          width={100}
+          cellRenderer={({ rowData }) => <span>{rowData.srcports.sort().join(", ")}</span>}
+        />
+        <Column
           label="Receive"
           dataKey="receive"
           width={80}
