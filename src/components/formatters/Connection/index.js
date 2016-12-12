@@ -13,7 +13,7 @@ const Connection = ({ srcip, dstip, dstport, protocol, showOnly, setShowOnly }) 
       <span className={classNames(styles.dstip, { [styles.selected] : showOnly === dstip })} onClick={() => setShowOnly(dstip === showOnly ? null : dstip)}>{dstip}</span>
       <span className={styles.symbol}>:</span>
       <span className={styles.port}>{dstport}</span>
-      {service ? <span className={styles.service}>/ {service.name}</span> : null}
+      <span className={styles.service}>/ {service.name || "?"}</span>
     </span>
   )
 }
