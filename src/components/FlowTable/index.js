@@ -12,7 +12,7 @@ const timeFormat = time => new Intl.DateTimeFormat(undefined, {
   second : "numeric",
 }).format(time * 1000 + 5 * 3600 * 1000)
 
-const FlowTable = ({ flows = [], showOnly }) => {
+const FlowTable = ({ flows = [], showOnly, setShowOnly }) => {
   const filtered = showOnly ? filter(flows, ({ srcip, dstip }) => srcip === showOnly || dstip === showOnly) : flows
   return (
     <div className={styles.table}><AutoSizer>{({ height, width }) => (
@@ -34,7 +34,7 @@ const FlowTable = ({ flows = [], showOnly }) => {
           label="Connection"
           dataKey="connection"
           width={300}
-          cellRenderer={({ rowData }) => <Connection {...rowData}/>}
+          cellRenderer={({ rowData }) => <Connection {...rowData} showOnly={showOnly} setShowOnly={setShowOnly}/>}
         />
         <Column
           label="Source Ports"
@@ -60,8 +60,9 @@ const FlowTable = ({ flows = [], showOnly }) => {
 }
 
 FlowTable.propTypes = {
-  flows    : T.array,
-  showOnly : T.string,
+  flows       : T.array,
+  showOnly    : T.string,
+  setShowOnly : T.func.isRequired,
 }
 
 export default FlowTable

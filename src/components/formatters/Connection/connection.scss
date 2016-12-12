@@ -3,22 +3,28 @@
     display : flex;
 
     .srcip, .dstip {
-      width : 13ch;
+      width       : 13ch;
+      font-weight : bold;
+      cursor      : pointer;
+
+      &.selected {
+        color : #e07d7d;
+      }
     }
   
-    .arrow {
-      margin : 0 2px;
+    .symbol {
+      margin  : 0 2px;
       opacity : 0.5;
     }
   
     .port {
-      margin-left : 2px;
-      opacity     : 0.5;
+      width : 5ch;
     }
 
     .service {
       margin-left : 2px;
       opacity     : 0.5;
+      width       : 10ch;
     }
   }
 }

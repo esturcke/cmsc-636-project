@@ -89,7 +89,7 @@ class App extends React.Component {
         />
         <div className={styles.tables}>
           <HostTable hosts={hosts} hostStats={hostStats} setShowOnly={this.setShowOnly} showOnly={showOnly}/>
-          <FlowTable flows={flows} showOnly={showOnly}/>
+          <FlowTable flows={flows} showOnly={showOnly} setShowOnly={this.setShowOnly} showOnly={showOnly}/>
         </div>
         <Loading loading={loading}/>
       </div>
