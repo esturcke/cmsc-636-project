@@ -25,7 +25,7 @@ const direction = (srcIp, dstIp) =>
   isExternal(dstIp) ? "outbound" : "internal"
 
 // If low src port assume flow is flipped
-const flipped = flow => flow[5] <= 1024
+const flipped = flow => parseInt(flow[7]) <= 1024 && parseInt(flow[7]) < parseInt(flow[8])
 
 const construct = es.map((line, cb) => {
   const flow = line.split(/,/)
