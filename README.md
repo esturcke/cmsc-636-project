@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Demo site](http://maiholz.org)
+[Live demo site](http://maiholz.org)
 
 ![Screen shot](screen-shot.png)
 
@@ -16,6 +16,8 @@
   - [Yarn](https://yarnpkg.com/)
 
 ### Setup
+
+**NOTE:** Downloading and populating the database may take up to 2 hours and requires 30GB of disk space.
 
 #### Clone Repository
 
@@ -45,12 +47,6 @@ Create database `cmsc-636`
 CREATE DATABASE "cmsc-636";
 ```
 
-Create a user `anon`:
-
-```bash
-psql cmsc-636 < schemas/read-only.sql
-```
-
 Process the data
 
 ```bash
@@ -71,8 +67,36 @@ Create derived tables
 psql cmsc-636 <  schemas/{flow,intrusion}_*.sql
 ```
 
+Create a user `anon`:
+
+```bash
+psql cmsc-636 < schemas/read-only.sql
+```
+
+### Viewing the Visualization
+
 #### Start the REST API
 
 ```
 yarn rest-api
+```
+
+Or to start the REST API as a daemon:
+
+```
+yarn rest-api-daemon
+```
+
+#### Start the Development UI
+
+```
+yarn start
+```
+
+#### Build the UI
+
+Alternatively, the UI can be built in production mode:
+
+```
+yarn build
 ```
